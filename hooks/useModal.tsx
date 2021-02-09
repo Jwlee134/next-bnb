@@ -1,6 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const show = keyframes`
+  0% {
+    transform: translateY(500px);
+  }
+  70% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+const fade = keyframes`
+  0% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -13,12 +34,25 @@ const Container = styled.div`
   left: 0;
 `;
 
-const ModalBackground = styled.div`
+const ModalBackground = styled.div<{ opening: boolean }>`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
+  ${({ opening }) =>
+    opening &&
+    css`
+      animation: ${fade} 0.3s linear forwards;
+    `}
+`;
+
+const Children = styled.div<{ opening: boolean }>`
+  z-index: 11;
+  ${({ opening }) =>
+    opening &&
+    css`
+      animation: ${show} 0.5s ease-in-out;
+    `}
 `;
 
 interface Props {
@@ -49,8 +83,8 @@ const useModal = () => {
     if (ref.current && modalOpened) {
       return ReactDOM.createPortal(
         <Container>
-          <ModalBackground onClick={closeModal} />
-          {children}
+          <ModalBackground opening={modalOpened} onClick={closeModal} />
+          <Children opening={modalOpened}>{children}</Children>
         </Container>,
         ref.current
       );

@@ -38,6 +38,7 @@ module.exports = {
     "operator-linebreak": "off", // 연산자 다음 줄 바꿈을 사용 할 수 있게 허용
     "react/require-default-props": "off", // custom props 추가 허용
     "global-require": "off", //함수 내에서 require 사용가능
+    "no-confusing-arrow": "off",
     "react/jsx-filename-extension": [
       1,
       { extensions: [".js", ".jsx", ".tsx"] }, // jsx를 사용가능한 파일 확장자명 설정
