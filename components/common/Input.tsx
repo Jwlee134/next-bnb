@@ -1,8 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import useValidateMode from "~/hooks/useValidateMode";
 import palette from "~/styles/palette";
 
-const Container = styled.div<{ icon: JSX.Element | undefined }>`
+interface ContainerProps {
+  icon: JSX.Element | undefined;
+  isValid: boolean;
+  validateMode: boolean;
+}
+
+const Container = styled.div<ContainerProps>`
   position: relative;
   input {
     width: 100%;
@@ -12,7 +19,6 @@ const Container = styled.div<{ icon: JSX.Element | undefined }>`
     border-radius: 4px;
     font-size: 16px;
     outline: none;
-    font-family: Noto Sans KR;
     ::placeholder {
       color: ${palette.gray_76};
     }
@@ -20,6 +26,15 @@ const Container = styled.div<{ icon: JSX.Element | undefined }>`
       border-color: ${palette.dark_cyan};
     }
   }
+  ${({ validateMode, isValid }) =>
+    validateMode &&
+    !isValid &&
+    css`
+      input {
+        background-color: ${palette.snow};
+        border-color: ${palette.orange};
+      }
+    `}
 `;
 
 const IconContainer = styled.div`
@@ -28,16 +43,41 @@ const IconContainer = styled.div`
   top: 13px;
 `;
 
+const ErrorMessage = styled.p`
+  margin-top: 8px;
+  font-size: 14px;
+  color: ${palette.tawny};
+`;
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: JSX.Element;
   style?: Object;
+  isValid?: boolean;
+  useValidation?: boolean;
+  errorMessage?: string;
 }
 
-const Input = ({ icon, style, ...props }: Props) => {
+const Input = ({
+  icon,
+  style,
+  isValid = false,
+  useValidation = false,
+  errorMessage,
+  ...props
+}: Props) => {
+  const { validateMode } = useValidateMode();
   return (
-    <Container icon={icon} style={style}>
+    <Container
+      icon={icon}
+      style={style}
+      isValid={isValid}
+      validateMode={validateMode}
+    >
       <input {...props} />
       <IconContainer>{icon}</IconContainer>
+      {!isValid && useValidation && validateMode && errorMessage && (
+        <ErrorMessage>{errorMessage}</ErrorMessage>
+      )}
     </Container>
   );
 };

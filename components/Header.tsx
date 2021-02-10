@@ -11,7 +11,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +31,6 @@ const ButtonContainer = styled.div``;
 
 const Button = styled.button<{ isLogin: boolean }>`
   height: 42px;
-  font-family: Noto Sans KR;
   padding: 0px 16px;
   border: 0;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);

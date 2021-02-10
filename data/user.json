@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "email": "sorhd134@gmail.com",
+    "firstname": "재원",
+    "lastname": "이",
+    "password": "$2a$08$jOWJMohRYMuKBpyO0AsT9u.FX7vq3AM0MqcfV/VcQYIdYm8y98hSK",
+    "birthday": "1997-11-19T00:00:00.000Z",
+    "profileImage": "/static/image/user/default_user_profile_image.jpg"
+  }
+]

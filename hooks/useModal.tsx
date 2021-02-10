@@ -47,12 +47,17 @@ const ModalBackground = styled.div<{ opening: boolean }>`
 `;
 
 const Children = styled.div<{ opening: boolean }>`
+  width: 468px;
   z-index: 11;
+  padding: 32px;
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 70px;
   ${({ opening }) =>
     opening &&
     css`
       animation: ${show} 0.5s ease-in-out;
-    `}
+    `};
 `;
 
 interface Props {

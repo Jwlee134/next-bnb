@@ -6,10 +6,11 @@ const globalStyles = css`
   ${reset}
   * {
     box-sizing: border-box;
+    font-family: Noto Sans KR, Ubuntu;
   }
   body {
     color: ${palette.black};
-    font-family: Ubuntu, Noto Sans KR;
+    font-family: Noto Sans KR, Ubuntu;
   }
 `;
 
