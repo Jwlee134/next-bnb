@@ -19,4 +19,9 @@ const saveUser = (user: StoredUser[]) => {
   writeFileSync("data/user.json", JSON.stringify(user));
 };
 
-export default { getUserList, exist, saveUser };
+const find = ({ email, id }: { email?: string; id?: number }) => {
+  const userData = getUserList();
+  return userData.find((user) => user.email === email || user.id === id);
+};
+
+export default { getUserList, exist, saveUser, find };

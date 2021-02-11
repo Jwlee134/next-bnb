@@ -12,6 +12,7 @@ import Button from "../common/Button";
 import { signUpAPI } from "~/lib/api/auth";
 import useValidateMode from "~/hooks/useValidateMode";
 import PasswordWarning from "./PasswordWarning";
+import { authActions } from "~/store/auth";
 
 const Header = styled.div`
   height: 50px;
@@ -23,7 +24,7 @@ const HeaderTitle = styled.p`
 `;
 
 const FormContainer = styled.form`
-  height: 464px;
+  height: 450px;
   overflow: auto;
   padding-right: 32px;
 `;
@@ -74,6 +75,12 @@ const ButtonContainer = styled.div`
   border-bottom: 1px solid ${palette.gray_eb};
 `;
 
+const LoginText = styled.span`
+  color: ${palette.dark_cyan};
+  margin-left: 8px;
+  cursor: pointer;
+`;
+
 interface Props {
   closeModal: () => void;
 }
@@ -122,11 +129,10 @@ const SignUpModal = ({ closeModal }: Props) => {
       !password ||
       !birthDay ||
       !birthMonth ||
-      !birthYear
+      !birthYear ||
+      !overMinLength ||
+      !hasNumberOrSymbol
     ) {
-      return false;
-    }
-    if (!overMinLength || !hasNumberOrSymbol) {
       return false;
     }
     return true;
@@ -287,6 +293,15 @@ const SignUpModal = ({ closeModal }: Props) => {
         <ButtonContainer>
           <Button type="submit">가입하기</Button>
         </ButtonContainer>
+        <p>
+          이미 에어비앤비 계정이 있나요?{" "}
+          <LoginText
+            role="presentation"
+            onClick={() => dispatch(authActions.setAuthMode("login"))}
+          >
+            로그인
+          </LoginText>
+        </p>
       </FormContainer>
     </>
   );

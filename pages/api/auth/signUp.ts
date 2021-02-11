@@ -10,16 +10,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       body: { email, password, firstname, lastname, birthday },
     } = req;
 
-    if (!email || !password || !firstname || !lastname || !birthday) {
-      res.statusCode = 400;
-      res.send("필수 정보가 누락되었습니다.");
-    }
-
     const userExists = Data.user.exist(email);
 
     if (userExists) {
-      res.statusCode = 409;
-      res.send("이미 가입된 이메일입니다.");
+      res.status(409).send("이미 가입된 이메일입니다.");
+      return;
     }
 
     const hashedPassword = bcrypt.hashSync(password, 8);
@@ -63,11 +58,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     > = newUser;
     delete newUserWithoutPassword.password;
 
-    res.statusCode = 200;
-    res.send(newUser);
-    res.end();
+    res.status(200).send(newUser);
   }
 
-  res.statusCode = 405;
-  res.end();
+  res.status(405).end();
 };

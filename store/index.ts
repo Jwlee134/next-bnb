@@ -6,10 +6,12 @@ import {
 } from "react-redux";
 import user from "./user";
 import common from "./common";
+import auth from "./auth";
 
 const rootReducer = combineReducers({
   user,
   common,
+  auth,
 });
 
 const reducer = (state: any, action: any) => {

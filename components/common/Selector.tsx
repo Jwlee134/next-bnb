@@ -3,20 +3,12 @@ import styled, { css } from "styled-components";
 import { useSelector } from "~/store";
 import palette from "~/styles/palette";
 
-const Container = styled.div<{ isValid: boolean; validateMode: boolean }>`
+const Container = styled.div`
   width: 100%;
   height: 46px;
-  ${({ isValid, validateMode }) =>
-    validateMode &&
-    css`
-      select {
-        border-color: ${isValid ? palette.dark_cyan : palette.tawny};
-        background-color: ${isValid ? "white" : palette.snow};
-      }
-    `}
 `;
 
-const Select = styled.select`
+const Select = styled.select<{ isValid: boolean; validateMode: boolean }>`
   width: 100%;
   height: 100%;
   background-color: white;
@@ -31,6 +23,12 @@ const Select = styled.select`
   background-image: url("/static/svg/common/selector/down_arrow.svg");
   background-repeat: no-repeat;
   background-position: right 11px center;
+  ${({ isValid, validateMode }) =>
+    validateMode &&
+    css`
+      border-color: ${isValid ? palette.dark_cyan : palette.tawny};
+      background-color: ${isValid ? "white" : palette.snow};
+    `}
 `;
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -42,8 +40,8 @@ const Selector = ({ options = [], isValid = false, ...props }: Props) => {
   const { defaultValue } = props;
   const { validateMode } = useSelector((state) => state.common);
   return (
-    <Container isValid={isValid} validateMode={validateMode}>
-      <Select {...props}>
+    <Container>
+      <Select {...props} isValid={isValid} validateMode={validateMode}>
         <option disabled>{defaultValue}</option>
         {options.map((option, index) => (
           <option key={index} value={option}>
@@ -55,4 +53,4 @@ const Selector = ({ options = [], isValid = false, ...props }: Props) => {
   );
 };
 
-export default Selector;
+export default React.memo(Selector);
