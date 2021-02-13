@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useModal from "~/hooks/useModal";
@@ -28,6 +28,13 @@ const Button = styled.button<{ isLogin: boolean }>`
 const HeaderAuths = () => {
   const dispatch = useDispatch();
   const { openModal, ModalPortal, closeModal } = useModal();
+
+  useEffect(() => {
+    return () => {
+      closeModal();
+    };
+  }, []);
+
   return (
     <>
       <ButtonContainer>

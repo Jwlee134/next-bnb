@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
@@ -70,11 +70,17 @@ const HeaderUserProfile = () => {
     try {
       await logoutAPI();
       dispatch(userActions.initUser());
-      setIsUserMenuOpened(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setIsUserMenuOpened(false);
+    };
+  }, []);
+
   return (
     <OutsideClickHandler
       onOutsideClick={() => {
