@@ -36,7 +36,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       const userWithoutPassword: Partial<Pick<StoredUser, "password">> = user;
       delete userWithoutPassword.password;
 
-      res.status(200).send(user);
+      res.status(200).send(userWithoutPassword);
     } catch (error) {
       res.status(500).send(error);
     }

@@ -38,6 +38,7 @@ module.exports = {
     "operator-linebreak": "off", // 연산자 다음 줄 바꿈을 사용 할 수 있게 허용
     "react/require-default-props": "off", // custom props 추가 허용
     "global-require": "off", //함수 내에서 require 사용가능
+    "jsx-a11y/label-has-associated-control": "off", // 상호작용하는 엘리먼트에 label을 넣음
     "no-confusing-arrow": "off",
     "prefer-destructuring": "off",
     "react/jsx-filename-extension": [

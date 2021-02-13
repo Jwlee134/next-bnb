@@ -4,7 +4,7 @@ const initialState: { authMode: "signUp" | "login" } = {
   authMode: "signUp",
 };
 
-const authSlice = createSlice({
+const auth = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -14,6 +14,6 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = { ...authSlice.actions };
+export const authActions = { ...auth.actions };
 
-export default authSlice.reducer;
+export default auth.reducer;

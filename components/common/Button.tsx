@@ -23,4 +23,4 @@ const Button = ({ children, ...props }: Props) => {
   return <Container {...props}>{children}</Container>;
 };
 
-export default React.memo(Button);
+export default React.memo(Button); // props의 값이 같다면 리렌더링을 방지하는 목적

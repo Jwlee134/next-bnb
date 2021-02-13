@@ -77,4 +77,4 @@ const Input = ({
   );
 };
 
-export default React.memo(Input);
+export default React.memo(Input); // props의 값이 같다면 리렌더링을 방지하는 목적

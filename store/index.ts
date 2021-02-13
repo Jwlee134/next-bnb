@@ -4,14 +4,17 @@ import {
   TypedUseSelectorHook,
   useSelector as useReduxSelector,
 } from "react-redux";
+
 import user from "./user";
 import common from "./common";
 import auth from "./auth";
+import registerRoom from "./registerRoom";
 
 const rootReducer = combineReducers({
   user,
   common,
   auth,
+  registerRoom,
 });
 
 const reducer = (state: any, action: any) => {
