@@ -34,13 +34,19 @@ const Select = styled.select<{ isValid: boolean; validateMode: boolean }>`
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: string[];
   isValid?: boolean;
+  style?: Object;
 }
 
-const Selector = ({ options = [], isValid = false, ...props }: Props) => {
+const Selector = ({
+  options = [],
+  isValid = false,
+  style,
+  ...props
+}: Props) => {
   const { defaultValue } = props;
   const { validateMode } = useSelector((state) => state.common);
   return (
-    <Container>
+    <Container style={style}>
       <Select {...props} isValid={isValid} validateMode={validateMode}>
         <option disabled>{defaultValue}</option>
         {options.map((option, index) => (

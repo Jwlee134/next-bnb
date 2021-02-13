@@ -1,1 +1,11 @@
-[{"id":1,"email":"sorhd134@gmail.com","firstname":"Jaewon","lastname":"Lee","password":"$2a$08$DeYj7iwwzEFybqIH/LsFrOvcqiXbDdmygVM1H01vTp9A7qjUZU52O","birthday":"1997-11-19T00:00:00.000Z","profileImage":"/static/image/user/default_user_profile_image.jpg"}]
+[
+  {
+    "id": 1,
+    "email": "sorhd134@gmail.com",
+    "firstname": "Jaewon",
+    "lastname": "Lee",
+    "password": "$2a$08$DeYj7iwwzEFybqIH/LsFrOvcqiXbDdmygVM1H01vTp9A7qjUZU52O",
+    "birthday": "1997-11-19T00:00:00.000Z",
+    "profileImage": "/static/image/user/default_user_profile_image.jpg"
+  }
+]

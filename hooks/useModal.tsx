@@ -19,7 +19,7 @@ const fade = keyframes`
     background-color: rgba(255, 255, 255, 1);
   }
   100% {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
   }
 `;
 
@@ -47,12 +47,10 @@ const ModalBackground = styled.div<{ opening: boolean }>`
 `;
 
 const Children = styled.div<{ opening: boolean }>`
-  width: 468px;
   z-index: 11;
   padding: 32px;
   background-color: white;
   border-radius: 15px;
-  margin-top: 70px;
   ${({ opening }) =>
     opening &&
     css`

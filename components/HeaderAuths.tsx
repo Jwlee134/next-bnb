@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useModal from "~/hooks/useModal";
 import { authActions } from "~/store/auth";
+import palette from "~/styles/palette";
 import AuthModal from "./auth/AuthModal";
 
 const ButtonContainer = styled.div``;
@@ -11,14 +12,16 @@ const Button = styled.button<{ isLogin: boolean }>`
   height: 42px;
   padding: 0px 16px;
   border: 0;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
+  box-shadow: ${({ isLogin }) => isLogin && "0px 1px 2px rgba(0, 0, 0, 0.18)"};
   border-radius: 21px;
   background-color: white;
   cursor: pointer;
   outline: none;
   margin-right: ${(props) => !props.isLogin && "8px"};
   &:hover {
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: ${({ isLogin }) =>
+      isLogin && "0px 2px 8px rgba(0, 0, 0, 0.12)"};
+    background-color: ${({ isLogin }) => !isLogin && palette.gray_f7};
   }
 `;
 

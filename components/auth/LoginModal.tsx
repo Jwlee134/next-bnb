@@ -10,6 +10,7 @@ import palette from "~/styles/palette";
 import useValidateMode from "~/hooks/useValidateMode";
 import { loginAPI } from "~/lib/api/auth";
 import { userActions } from "~/store/user";
+import ErrorMessage from "../common/ErrorMessage";
 
 const Header = styled.div`
   height: 50px;
@@ -28,7 +29,9 @@ const StyleAiOutlineClose = styled(AiOutlineClose)`
   right: 0;
 `;
 
-const FormContainer = styled.form``;
+const FormContainer = styled.form`
+  width: 468px;
+`;
 
 const ButtonContainer = styled.div`
   margin-bottom: 16px;
@@ -54,6 +57,8 @@ const LoginModal = ({ closeModal }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorText, setErrorText] = useState("");
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidateMode(true);
@@ -64,7 +69,7 @@ const LoginModal = ({ closeModal }: Props) => {
       dispatch(userActions.setLoggedUser(data));
       closeModal();
     } catch (error) {
-      console.log(error);
+      setErrorText(error.response.data);
     }
   };
 
@@ -113,6 +118,7 @@ const LoginModal = ({ closeModal }: Props) => {
         />
         <ButtonContainer>
           <Button type="submit">로그인</Button>
+          {!!errorText && <ErrorMessage>{errorText}</ErrorMessage>}
         </ButtonContainer>
         <p>
           계정이 없으신가요?{" "}

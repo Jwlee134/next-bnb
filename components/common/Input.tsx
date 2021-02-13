@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import useValidateMode from "~/hooks/useValidateMode";
 import palette from "~/styles/palette";
+import ErrorMessage from "./ErrorMessage";
 
 interface ContainerProps {
   icon: JSX.Element | undefined;
@@ -41,12 +42,6 @@ const IconContainer = styled.div`
   position: absolute;
   right: 13px;
   top: 13px;
-`;
-
-const ErrorMessage = styled.p`
-  margin-top: 8px;
-  font-size: 14px;
-  color: ${palette.tawny};
 `;
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -13,6 +13,7 @@ import { signUpAPI } from "~/lib/api/auth";
 import useValidateMode from "~/hooks/useValidateMode";
 import PasswordWarning from "./PasswordWarning";
 import { authActions } from "~/store/auth";
+import ErrorMessage from "../common/ErrorMessage";
 
 const Header = styled.div`
   height: 50px;
@@ -24,6 +25,7 @@ const HeaderTitle = styled.p`
 `;
 
 const FormContainer = styled.form`
+  width: 468px;
   height: 450px;
   overflow: auto;
   padding-right: 32px;
@@ -54,19 +56,6 @@ const BirthdayInfo = styled.p`
 const SelectorContainer = styled.div`
   display: flex;
   margin-bottom: 24px;
-`;
-
-const Day = styled.div`
-  flex-grow: 1;
-  margin-right: 16px;
-`;
-
-const Month = styled.div`
-  width: 25%;
-  margin-right: 16px;
-`;
-const Year = styled.div`
-  width: 33.3333%;
 `;
 
 const ButtonContainer = styled.div`
@@ -103,9 +92,11 @@ const SignUpModal = ({ closeModal }: Props) => {
   const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
 
-  const [birthYear, setBirthYear] = useState("");
-  const [birthDay, setBirthday] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+
+  const [emailExists, setEmailExists] = useState("");
 
   // Password가 최소 자릿수 이상이면 true를 리턴
   const overMinLength = useMemo(
@@ -127,9 +118,9 @@ const SignUpModal = ({ closeModal }: Props) => {
       !firstname ||
       !lastname ||
       !password ||
-      !birthDay ||
-      !birthMonth ||
-      !birthYear ||
+      !day ||
+      !month ||
+      !year ||
       !overMinLength ||
       !hasNumberOrSymbol
     ) {
@@ -150,14 +141,14 @@ const SignUpModal = ({ closeModal }: Props) => {
           lastname,
           password,
           birthday: new Date(
-            `${birthYear}-${birthMonth!.replace("월", "")}-${birthDay}`
+            `${year}-${month!.replace("월", "")}-${day}`
           ).toISOString(),
         };
         const { data } = await signUpAPI(body);
         dispatch(userActions.setLoggedUser(data));
         closeModal();
       } catch (error) {
-        console.log(error);
+        setEmailExists(error.response.data);
       }
     }
   };
@@ -180,15 +171,15 @@ const SignUpModal = ({ closeModal }: Props) => {
   };
   // 년
   const handleYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthYear(e.target.value);
+    setYear(e.target.value);
   };
   // 일
   const handleDay = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthday(e.target.value);
+    setDay(e.target.value);
   };
   // 월
   const handleMonth = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthMonth(e.target.value);
+    setMonth(e.target.value);
   };
 
   useEffect(() => {
@@ -265,33 +256,31 @@ const SignUpModal = ({ closeModal }: Props) => {
           에어비앤비 사용자에게 공개되지 않습니다.
         </BirthdayInfo>
         <SelectorContainer>
-          <Day>
-            <Selector
-              options={monthList}
-              defaultValue="월"
-              onChange={handleMonth}
-              isValid={!!birthMonth}
-            />
-          </Day>
-          <Month>
-            <Selector
-              options={dayList}
-              defaultValue="일"
-              onChange={handleDay}
-              isValid={!!birthDay}
-            />
-          </Month>
-          <Year>
-            <Selector
-              options={yearList}
-              defaultValue="년"
-              onChange={handleYear}
-              isValid={!!birthYear}
-            />
-          </Year>
+          <Selector
+            options={monthList}
+            defaultValue="월"
+            onChange={handleMonth}
+            isValid={!!month}
+            style={{ width: "36%", marginRight: 16 }}
+          />
+          <Selector
+            options={dayList}
+            defaultValue="일"
+            onChange={handleDay}
+            isValid={!!day}
+            style={{ width: "28%", marginRight: 16 }}
+          />
+          <Selector
+            options={yearList}
+            defaultValue="년"
+            onChange={handleYear}
+            isValid={!!year}
+            style={{ width: "36%" }}
+          />
         </SelectorContainer>
         <ButtonContainer>
           <Button type="submit">가입하기</Button>
+          {!!emailExists && <ErrorMessage>{emailExists}</ErrorMessage>}
         </ButtonContainer>
         <p>
           이미 에어비앤비 계정이 있나요?{" "}
