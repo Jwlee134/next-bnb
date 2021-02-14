@@ -42,7 +42,9 @@ const Container = styled.div<ContainerProps>`
     width: 100%;
     background-color: white;
     outline: none;
+    font-size: 14px;
     -webkit-appearance: none;
+    cursor: pointer;
     &:focus {
       border-color: ${palette.dark_cyan};
     }
@@ -80,7 +82,7 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   isValid?: boolean;
   style?: Object;
   label?: string;
-  useErrorMessage?: boolean;
+  showErrorMessage?: boolean;
   errorMessage?: string;
   type?: "normal" | "register";
 }
@@ -90,7 +92,7 @@ const Selector = ({
   isValid = false,
   style,
   label,
-  useErrorMessage = false,
+  showErrorMessage = false,
   errorMessage = "옵션을 선택해주세요.",
   type = "normal",
   ...props
@@ -107,7 +109,11 @@ const Selector = ({
       <label>
         {label && <span>{label}</span>}
         <select {...props}>
-          <option disabled>{defaultValue}</option>
+          {defaultValue && (
+            <option value={defaultValue} disabled>
+              {defaultValue}
+            </option>
+          )}
           {options.map((option, index) => (
             <option key={index} value={option}>
               {option}
@@ -115,7 +121,7 @@ const Selector = ({
           ))}
         </select>
       </label>
-      {!isValid && useErrorMessage && validateMode && (
+      {!isValid && showErrorMessage && validateMode && (
         <Warning>
           <WarningIcon />
           <p>{errorMessage}</p>

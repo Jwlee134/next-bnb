@@ -40,7 +40,7 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&family=Ubuntu:wght@400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Ubuntu:wght@400;500&display=swap"
             rel="stylesheet"
           />
         </Head>

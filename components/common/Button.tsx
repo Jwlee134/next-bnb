@@ -17,10 +17,15 @@ const Container = styled.button`
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
+  style?: Object;
 }
 
-const Button = ({ children, ...props }: Props) => {
-  return <Container {...props}>{children}</Container>;
+const Button = ({ children, style, ...props }: Props) => {
+  return (
+    <Container style={style} {...props}>
+      {children}
+    </Container>
+  );
 };
 
 export default React.memo(Button); // props의 값이 같다면 리렌더링을 방지하는 목적
