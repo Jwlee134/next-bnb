@@ -43,8 +43,8 @@ const ButtonContainer = styled.div`
 `;
 
 interface Props {
-  label?: string;
-  value?: number;
+  label: string;
+  value: number;
   description?: string;
   minValue?: number;
   numberUnit?: number;

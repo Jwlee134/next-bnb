@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Counter from "~/components/common/Counter";
+import Selector from "~/components/common/Selector";
 import { bedroomCountList } from "~/lib/staticData";
 import { getNumber } from "~/lib/utils";
 import { useSelector } from "~/store";
 import { registerRoomActions } from "~/store/registerRoom";
 import palette from "~/styles/palette";
-import Counter from "../common/Counter";
-import Selector from "../common/Selector";
-import RegisterRoomFooter from "./RegisterRoomFooter";
+import RegisterRoomFooter from "../RegisterRoomFooter";
+import BedTypes from "./BedTypes";
 
 const Container = styled.div`
   padding: 62px 30px 0px 30px;
@@ -46,10 +47,30 @@ const Title = styled.div`
   margin-bottom: 8px;
 `;
 
-const RegisterRoomBedroom = () => {
-  const { maximumGuestCount, bedroomCount, bedCount } = useSelector(
-    (state) => state.registerRoom
-  );
+const BedTypetitle = styled.div`
+  font-size: 24px;
+  margin-bottom: 12px;
+`;
+
+const BedTypeDescription = styled.div`
+  width: 400px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 300;
+`;
+
+const BedListContainer = styled.div`
+  width: 548px;
+`;
+
+const RegisterBedrooms = () => {
+  const {
+    maximumGuestCount,
+    bedroomCount,
+    bedCount,
+    bedroomDetail,
+  } = useSelector((state) => state.registerRoom);
   const dispatch = useDispatch();
 
   const handleMaximumGuestCount = (value: number) => {
@@ -93,10 +114,24 @@ const RegisterRoomBedroom = () => {
           <Title>게스트가 사용할 수 있는 침대는 몇 개인가요?</Title>
           <Counter label="침대" value={bedCount} onClick={handleBedCount} />
         </CommonContainer>
+        {bedroomDetail.length > 0 && (
+          <>
+            <BedTypetitle>침대 유형</BedTypetitle>
+            <BedTypeDescription>
+              각 침실에 놓인 침대 유형을 명시하면 숙소에 침대가 어떻게 구비되어
+              있는지 게스트가 잘 파악할 수 있습니다.
+            </BedTypeDescription>
+            <BedListContainer>
+              {bedroomDetail.map((bedroom, index) => (
+                <BedTypes bedroom={bedroom} key={index} />
+              ))}
+            </BedListContainer>
+          </>
+        )}
       </RegisterRoomBody>
       <RegisterRoomFooter isValid={true} nextHref="/room/register/bathroom" />
     </Container>
   );
 };
 
-export default RegisterRoomBedroom;
+export default RegisterBedrooms;

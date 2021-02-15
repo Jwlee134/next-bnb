@@ -258,24 +258,27 @@ const SignUpModal = ({ closeModal }: Props) => {
         <SelectorContainer>
           <Selector
             options={monthList}
-            defaultValue="월"
             onChange={handleMonth}
             isValid={!!month}
             style={{ width: "36%", marginRight: 16 }}
+            value={month || "월"}
+            disabledValue="월"
           />
           <Selector
             options={dayList}
-            defaultValue="일"
             onChange={handleDay}
             isValid={!!day}
             style={{ width: "28%", marginRight: 16 }}
+            value={day || "일"}
+            disabledValue="일"
           />
           <Selector
             options={yearList}
-            defaultValue="년"
             onChange={handleYear}
             isValid={!!year}
             style={{ width: "36%" }}
+            value={year || "년"}
+            disabledValue="년"
           />
         </SelectorContainer>
         <ButtonContainer>

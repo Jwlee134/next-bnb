@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import React from "react";
-import RegisterRoomBuilding from "~/components/register/RegisterRoomBuilding";
+import RegisterBuilding from "~/components/register/stepOne";
 
 const Building: NextPage = () => {
-  return <RegisterRoomBuilding />;
+  return <RegisterBuilding />;
 };
 
 export default Building;

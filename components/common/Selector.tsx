@@ -80,11 +80,11 @@ const Warning = styled.div`
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: string[];
   isValid?: boolean;
-  style?: Object;
   label?: string;
   showErrorMessage?: boolean;
   errorMessage?: string;
   type?: "normal" | "register";
+  disabledValue?: string;
 }
 
 const Selector = ({
@@ -95,9 +95,9 @@ const Selector = ({
   showErrorMessage = false,
   errorMessage = "옵션을 선택해주세요.",
   type = "normal",
+  disabledValue,
   ...props
 }: Props) => {
-  const { defaultValue } = props;
   const { validateMode } = useSelector((state) => state.common);
   return (
     <Container
@@ -109,9 +109,9 @@ const Selector = ({
       <label>
         {label && <span>{label}</span>}
         <select {...props}>
-          {defaultValue && (
-            <option value={defaultValue} disabled>
-              {defaultValue}
+          {disabledValue && (
+            <option value={disabledValue} disabled>
+              {disabledValue}
             </option>
           )}
           {options.map((option, index) => (

@@ -1,14 +1,25 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import palette from "~/styles/palette";
 
-const Container = styled.button`
+const normalType = css`
   width: 100%;
-  height: 48px;
-  border: 0;
-  border-radius: 4px;
   background-color: ${palette.bittersweet};
   color: white;
+  border: 0;
+`;
+
+const registerType = css`
+  width: 161px;
+  border: 1px solid ${palette.gray_c4};
+  background-color: white;
+  color: ${palette.gray_48};
+`;
+
+const Container = styled.button<{ styleType: "normal" | "register" }>`
+  ${({ styleType }) => (styleType === "normal" ? normalType : registerType)}
+  height: 48px;
+  border-radius: 4px;
   font-size: 16px;
   font-weight: 500;
   outline: none;
@@ -18,11 +29,12 @@ const Container = styled.button`
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   style?: Object;
+  styleType?: "normal" | "register";
 }
 
-const Button = ({ children, style, ...props }: Props) => {
+const Button = ({ children, style, styleType = "normal", ...props }: Props) => {
   return (
-    <Container style={style} {...props}>
+    <Container style={style} styleType={styleType} {...props}>
       {children}
     </Container>
   );

@@ -1,8 +1,8 @@
 import React from "react";
-import RegisterRoomBedroom from "~/components/register/RegisterRoomBedrooms";
+import RegisterBedrooms from "~/components/register/stepTwo";
 
 const BedRoom = () => {
-  return <RegisterRoomBedroom />;
+  return <RegisterBedrooms />;
 };
 
 export default BedRoom;

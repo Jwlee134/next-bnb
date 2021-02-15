@@ -41,6 +41,7 @@ module.exports = {
     "jsx-a11y/label-has-associated-control": "off", // 상호작용하는 엘리먼트에 label을 넣음
     "no-confusing-arrow": "off",
     "prefer-destructuring": "off",
+    "no-plusplus": "off",
     "react/jsx-filename-extension": [
       1,
       { extensions: [".js", ".jsx", ".tsx"] }, // jsx를 사용가능한 파일 확장자명 설정

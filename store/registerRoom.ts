@@ -9,7 +9,7 @@ interface State {
   maximumGuestCount: number;
   bedroomCount: number;
   bedCount: number;
-  bedList: { id: number; beds: { type: BedType; count: number }[] }[];
+  bedroomDetail: { id: number; beds: { type: BedType; count: number }[] }[];
   publicBedList: { type: BedType; count: number }[];
 }
 
@@ -21,7 +21,7 @@ const initialState: State = {
   maximumGuestCount: 1, // 최대 숙박 인원
   bedroomCount: 1, // 침실 개수
   bedCount: 1, // 침대 개수
-  bedList: [], // 침대 유형
+  bedroomDetail: [{ id: 1, beds: [] }], // 침대 유형
   publicBedList: [], // 공용공간 침대 유형
 };
 
@@ -53,9 +53,45 @@ const registerRoom = createSlice({
     },
     setBedroomCount: (state, action: PayloadAction<number>) => {
       state.bedroomCount = action.payload;
+      // 침실 개수는 기본적으로 1개 (그러면 침대 유형의 bedList도 1개)
+      if (state.bedroomDetail.length < action.payload) {
+        // 만약 침실 개수를 5개로 늘렸다면 (bedroomDetail = 1 < action.payload = 5)
+        // 침대 유형의 bedList를 2부터 5까지 반복문으로 생성
+        for (
+          let i = state.bedroomDetail.length + 1;
+          i < action.payload + 1;
+          i++
+        ) {
+          state.bedroomDetail.push({ id: i, beds: [] });
+        }
+      } else {
+        // 만약 침실 개수를 2개로 줄였다면 (bedroomDetail = 5 > action.payload = 2)
+        // 침대 유형의 bedList의 index 0 ~ 1 까지 추출하여 새로운 배열로 반환
+        // slice(0, 2)에서 index 2는 미포함
+        state.bedroomDetail = state.bedroomDetail.slice(0, action.payload);
+      }
     },
     setBedCount: (state, action: PayloadAction<number>) => {
       state.bedCount = action.payload;
+    },
+    setBedList: (
+      state,
+      action: PayloadAction<{ id: number; type: BedType }>
+    ) => {
+      const { id, type } = action.payload;
+      state.bedroomDetail[id - 1].beds.push({ type, count: 1 });
+    },
+    setBedTypeCount: (
+      state,
+      action: PayloadAction<{ value: number; id: number; type: string }>
+    ) => {
+      const { value, id, type } = action.payload;
+      const bedType = state.bedroomDetail[id - 1].beds.find(
+        (bed) => bed.type === type
+      );
+      if (bedType) {
+        bedType.count = value;
+      }
     },
   },
 });
