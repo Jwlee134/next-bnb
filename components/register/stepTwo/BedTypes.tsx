@@ -21,8 +21,17 @@ const BedRoomTitle = styled.div`
 `;
 
 const BedCounts = styled.div`
+  margin-bottom: 5px;
   color: ${palette.gray_48};
   font-weight: 300;
+`;
+
+const BedsText = styled.div`
+  color: ${palette.gray_48};
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.1;
+  max-width: 320px;
 `;
 
 const CounterContainer = styled.div`
@@ -75,11 +84,17 @@ const BedTypes = ({ bedroom }: Props) => {
     );
   };
 
+  const bedsText = useMemo(() => {
+    const texts = bedroom.beds.map((bed) => `${bed.type} ${bed.count}개`);
+    return texts.join(", ");
+  }, [bedroom]);
+
   return (
     <BedList>
       <div>
         <BedRoomTitle>{bedroom.id}번 침실</BedRoomTitle>
         <BedCounts>침대 {totalBedsCount}개</BedCounts>
+        <BedsText>{bedsText}</BedsText>
         {isAdd &&
           bedroom.beds.map((bed, index) => (
             <CounterContainer key={index}>
