@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { createWrapper, HYDRATE, MakeStore } from "next-redux-wrapper";
 import {
   TypedUseSelectorHook,
   useSelector as useReduxSelector,
@@ -17,21 +17,31 @@ const rootReducer = combineReducers({
   registerRoom,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
+
+let initialRootState: RootState;
+
 const reducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
-    };
-    return nextState;
+    if (state === initialRootState) {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+    return state;
   }
   return rootReducer(state, action);
 };
 
-export type RootState = ReturnType<typeof rootReducer>;
-
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
 
-const initStore = () => configureStore({ reducer });
+const initStore: MakeStore = () => {
+  const store = configureStore({
+    reducer,
+  });
+  initialRootState = store.getState();
+  return store;
+};
 
 export const wrapper = createWrapper(initStore);

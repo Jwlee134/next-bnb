@@ -11,29 +11,6 @@ import palette from "~/styles/palette";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 import BedTypeList from "./BedTypeList";
 
-const Container = styled.div`
-  padding: 62px 30px 0px 30px;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  h2 {
-    font-size: 19px;
-    font-weight: 700;
-    margin-bottom: 56px;
-  }
-  h3 {
-    font-weight: 500;
-    color: ${palette.gray_76};
-    margin-bottom: 6px;
-  }
-  p {
-    font-weight: 500;
-    color: ${palette.gray_76};
-    margin-bottom: 24px;
-  }
-`;
-
 const RegisterRoomBody = styled.div``;
 
 const CommonContainer = styled.div`
@@ -79,7 +56,7 @@ const RegisterBedrooms = () => {
   };
 
   return (
-    <Container>
+    <>
       <RegisterRoomBody>
         <h2>숙소에 얼마나 많은 인원이 숙박할 수 있나요?</h2>
         <h3>2단계</h3>
@@ -120,7 +97,7 @@ const RegisterBedrooms = () => {
         isValid={!!bedroomCount}
         nextHref="/room/register/bathroom"
       />
-    </Container>
+    </>
   );
 };
 

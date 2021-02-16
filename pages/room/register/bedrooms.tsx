@@ -1,8 +1,9 @@
+import { NextPage } from "next";
 import React from "react";
-import RegisterBedrooms from "~/components/register/bedroom";
+import RegisterRoom from "~/components/register";
 
-const BedRoom = () => {
-  return <RegisterBedrooms />;
+const BedRoom: NextPage = () => {
+  return <RegisterRoom />;
 };
 
 export default BedRoom;

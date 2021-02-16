@@ -24,17 +24,33 @@ const Container = styled.button<{ styleType: "normal" | "register" }>`
   font-weight: 500;
   outline: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Icon = styled.div`
+  margin-top: 4px;
+  margin-right: 10px;
 `;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   style?: Object;
   styleType?: "normal" | "register";
+  icon?: JSX.Element;
 }
 
-const Button = ({ children, style, styleType = "normal", ...props }: Props) => {
+const Button = ({
+  children,
+  style,
+  styleType = "normal",
+  icon,
+  ...props
+}: Props) => {
   return (
     <Container style={style} styleType={styleType} {...props}>
+      {icon && <Icon>{icon}</Icon>}
       {children}
     </Container>
   );

@@ -42,6 +42,8 @@ module.exports = {
     "no-confusing-arrow": "off",
     "prefer-destructuring": "off",
     "no-plusplus": "off",
+    "no-undef": "off",
+    "no-alert": "off",
     "react/jsx-filename-extension": [
       1,
       { extensions: [".js", ".jsx", ".tsx"] }, // jsx를 사용가능한 파일 확장자명 설정

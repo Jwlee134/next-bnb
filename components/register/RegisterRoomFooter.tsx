@@ -35,7 +35,7 @@ interface Props {
 }
 
 const RegisterRoomFooter = ({ nextHref, isValid = false }: Props) => {
-  const { validateMode, setValidateMode } = useValidateMode();
+  const { setValidateMode } = useValidateMode();
 
   const router = useRouter();
 
@@ -48,9 +48,7 @@ const RegisterRoomFooter = ({ nextHref, isValid = false }: Props) => {
 
   useEffect(() => {
     return () => {
-      if (validateMode) {
-        setValidateMode(false);
-      }
+      setValidateMode(false);
     };
   }, []);
 

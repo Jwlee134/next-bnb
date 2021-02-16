@@ -76,18 +76,20 @@ const Warning = styled.div`
   svg {
     margin-right: 4px;
   }
-  p {
-    font-size: 12px;
-    color: ${palette.davidson_orange};
-  }
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 12px;
+  color: ${palette.davidson_orange};
 `;
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  options?: { label: string; value: any; description?: string }[];
+  options: { label: string; value: any; description?: string }[];
   errorMessage?: string;
   isValid?: boolean;
-  radioValue?: string | null;
+  radioValue: string | null;
+  style?: Object;
 }
 
 const RadioGroup = ({
@@ -96,11 +98,12 @@ const RadioGroup = ({
   errorMessage = "옵션을 선택하세요.",
   isValid = false,
   radioValue,
+  style,
   ...props
 }: Props) => {
   const { validateMode } = useSelector((state) => state.common);
   return (
-    <Container>
+    <Container style={style}>
       <Label>{label}</Label>
       <RadioList>
         {options.map((option, index) => (
@@ -123,7 +126,7 @@ const RadioGroup = ({
       {!isValid && validateMode && (
         <Warning>
           <WarningIcon />
-          <p>{errorMessage}</p>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
         </Warning>
       )}
     </Container>

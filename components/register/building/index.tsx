@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import useValidateMode from "~/hooks/useValidateMode";
 import {
   apartmentBuildingTypeList,
   largeBuildingTypeList,
@@ -15,28 +14,9 @@ import {
 } from "~/lib/staticData";
 import { useSelector } from "~/store";
 import { registerRoomActions } from "~/store/registerRoom";
-import palette from "~/styles/palette";
 import RadioGroup from "../../common/RadioGroup";
 import Selector from "../../common/Selector";
 import RegisterRoomFooter from "../RegisterRoomFooter";
-
-const Container = styled.div`
-  padding: 62px 30px 0px 30px;
-  min-height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  h2 {
-    font-size: 19px;
-    font-weight: 700;
-    margin-bottom: 56px;
-  }
-  h3 {
-    font-weight: 500;
-    color: ${palette.gray_76};
-    margin-bottom: 6px;
-  }
-`;
 
 const RegisterRoomBody = styled.div``;
 
@@ -57,12 +37,7 @@ const RegisterBuilding = () => {
 
   const dispatch = useDispatch();
 
-  const { validateMode, setValidateMode } = useValidateMode();
-
   const handleLargeBuildingType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (validateMode) {
-      setValidateMode(false);
-    }
     dispatch(registerRoomActions.setlargeBuildingType(e.target.value));
     dispatch(registerRoomActions.setBuildingType(""));
   };
@@ -107,7 +82,7 @@ const RegisterBuilding = () => {
   }, [largeBuildingType]);
 
   return (
-    <Container>
+    <>
       <RegisterRoomBody>
         <h2>등록하실 숙소 종류는 무엇인가요?</h2>
         <h3>1단계</h3>
@@ -166,7 +141,7 @@ const RegisterBuilding = () => {
         }
         nextHref="/room/register/bedrooms"
       />
-    </Container>
+    </>
   );
 };
 

@@ -8,10 +8,17 @@ interface ContainerProps {
   icon: JSX.Element | undefined;
   isValid: boolean;
   validateMode: boolean;
+  useValidation: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
   position: relative;
+  span {
+    display: block;
+    color: ${palette.gray_76};
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
   input {
     width: 100%;
     height: 46px;
@@ -27,8 +34,9 @@ const Container = styled.div<ContainerProps>`
       border-color: ${palette.dark_cyan};
     }
   }
-  ${({ validateMode, isValid }) =>
+  ${({ validateMode, isValid, useValidation }) =>
     validateMode &&
+    useValidation &&
     !isValid &&
     css`
       input {
@@ -50,14 +58,16 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   isValid?: boolean;
   useValidation?: boolean;
   errorMessage?: string;
+  label?: string;
 }
 
 const Input = ({
   icon,
   style,
   isValid = false,
-  useValidation = false,
+  useValidation = true,
   errorMessage,
+  label,
   ...props
 }: Props) => {
   const { validateMode } = useValidateMode();
@@ -67,7 +77,9 @@ const Input = ({
       style={style}
       isValid={isValid}
       validateMode={validateMode}
+      useValidation={useValidation}
     >
+      {label && <span>{label}</span>}
       <input {...props} />
       <IconContainer>{icon}</IconContainer>
       {!isValid && useValidation && validateMode && errorMessage && (

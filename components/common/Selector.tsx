@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { useSelector } from "~/store";
 import palette from "~/styles/palette";
 import WarningIcon from "~/public/static/svg/common/warning.svg";
+import useValidateMode from "~/hooks/useValidateMode";
 
 interface ContainerProps {
   isValid: boolean;
@@ -99,7 +99,7 @@ const Selector = ({
   disabledValue,
   ...props
 }: Props) => {
-  const { validateMode } = useSelector((state) => state.common);
+  const { validateMode } = useValidateMode();
   return (
     <Container
       style={style}
