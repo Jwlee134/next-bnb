@@ -71,10 +71,11 @@ const Warning = styled.div`
   svg {
     margin-right: 4px;
   }
-  p {
-    font-size: 12px;
-    color: ${palette.davidson_orange};
-  }
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 12px;
+  color: ${palette.davidson_orange};
 `;
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -124,7 +125,7 @@ const Selector = ({
       {!isValid && showErrorMessage && validateMode && (
         <Warning>
           <WarningIcon />
-          <p>{errorMessage}</p>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
         </Warning>
       )}
     </Container>

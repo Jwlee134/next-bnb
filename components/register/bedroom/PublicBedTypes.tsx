@@ -5,6 +5,7 @@ import Button from "~/components/common/Button";
 import Counter from "~/components/common/Counter";
 import Selector from "~/components/common/Selector";
 import { bedTypes } from "~/lib/staticData";
+import { useSelector } from "~/store";
 import { registerRoomActions } from "~/store/registerRoom";
 import palette from "~/styles/palette";
 import { BedType } from "~/types/room";
@@ -38,70 +39,46 @@ const CounterContainer = styled.div`
   margin: 18px 0px;
 `;
 
-interface Props {
-  bedroom: {
-    id: number;
-    beds: {
-      type: BedType;
-      count: number;
-    }[];
-  };
-}
+const PublicBedTypes = () => {
+  const { publicBedList } = useSelector((state) => state.registerRoom);
 
-const BedTypes = ({ bedroom }: Props) => {
-  const bedOptions = bedroom.beds.map((bed) => bed.type);
+  const addedOptions = publicBedList.map((bed) => bed.type);
 
   const [isAdd, setIsAdd] = useState(false);
 
   const dispatch = useDispatch();
 
-  const totalBedsCount = useMemo(() => {
-    let total = 0;
-    bedroom.beds.forEach((bed) => {
-      total += bed.count;
-    });
-    return total;
-  }, [bedroom]);
-
-  const excludeActivatedBed = useMemo(() => {
-    // activatedBed가 bedType을 포함하면 true를 반환
-    // filter는 true를 모아서 새로운 배열을 반환하므로 앞에 !를 붙여줌
-    return bedTypes.filter((bedType) => !bedOptions.includes(bedType));
-  }, [bedroom]);
-
   const toggleAdd = () => setIsAdd(!isAdd);
 
-  const handleClick = (value: number, id: number, bed: BedType) => {
-    dispatch(registerRoomActions.setBedTypeCount({ value, id, type: bed }));
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(registerRoomActions.setPublicBedList(e.target.value as BedType));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(
-      registerRoomActions.setBedList({
-        id: bedroom.id,
-        type: e.target.value as BedType,
-      })
-    );
+  const handleClick = (value: number, type: BedType) => {
+    dispatch(registerRoomActions.setPublicBedCount({ value, type }));
   };
+
+  const excludeActivatedBed = useMemo(() => {
+    return bedTypes.filter((bed) => !addedOptions.includes(bed));
+  }, [publicBedList]);
 
   const bedsText = useMemo(() => {
-    const texts = bedroom.beds.map((bed) => `${bed.type} ${bed.count}개`);
-    return texts.join(", ");
-  }, [bedroom]);
+    return publicBedList.map((bed) => `${bed.type} ${bed.count}개`).join(", ");
+  }, [publicBedList]);
 
   return (
     <BedList>
       <div>
-        <BedRoomTitle>{bedroom.id}번 침실</BedRoomTitle>
-        <BedCounts>침대 {totalBedsCount}개</BedCounts>
+        <BedRoomTitle>공용 공간</BedRoomTitle>
+        <BedCounts>침대 {publicBedList.length}개</BedCounts>
         <BedsText>{bedsText}</BedsText>
         {isAdd &&
-          bedroom.beds.map((bed, index) => (
+          publicBedList.map((bed, index) => (
             <CounterContainer key={index}>
               <Counter
                 label={bed.type}
-                onClick={(value) => handleClick(value, bedroom.id, bed.type)}
                 value={bed.count}
+                onClick={(value) => handleClick(value, bed.type)}
               />
             </CounterContainer>
           ))}
@@ -113,6 +90,7 @@ const BedTypes = ({ bedroom }: Props) => {
             disabledValue="다른 침대 추가"
             style={{ width: 320, marginTop: 18 }}
             onChange={handleChange}
+            isValid={true}
           />
         )}
       </div>
@@ -124,4 +102,4 @@ const BedTypes = ({ bedroom }: Props) => {
   );
 };
 
-export default BedTypes;
+export default PublicBedTypes;

@@ -53,10 +53,10 @@ const registerRoom = createSlice({
     },
     setBedroomCount: (state, action: PayloadAction<number>) => {
       state.bedroomCount = action.payload;
-      // 침실 개수는 기본적으로 1개 (그러면 침대 유형의 bedList도 1개)
+      // 침실 개수는 기본적으로 1개 (그러면 bedroomDetail도 1개)
       if (state.bedroomDetail.length < action.payload) {
         // 만약 침실 개수를 5개로 늘렸다면 (bedroomDetail = 1 < action.payload = 5)
-        // 침대 유형의 bedList를 2부터 5까지 반복문으로 생성
+        // bedroomDetail을 2부터 5까지 반복문으로 생성
         for (
           let i = state.bedroomDetail.length + 1;
           i < action.payload + 1;
@@ -66,7 +66,7 @@ const registerRoom = createSlice({
         }
       } else {
         // 만약 침실 개수를 2개로 줄였다면 (bedroomDetail = 5 > action.payload = 2)
-        // 침대 유형의 bedList의 index 0 ~ 1 까지 추출하여 새로운 배열로 반환
+        // bedroomDetail의 index 0 ~ 1 까지 추출하여 새로운 배열로 반환
         // slice(0, 2)에서 index 2는 미포함
         state.bedroomDetail = state.bedroomDetail.slice(0, action.payload);
       }
@@ -74,7 +74,7 @@ const registerRoom = createSlice({
     setBedCount: (state, action: PayloadAction<number>) => {
       state.bedCount = action.payload;
     },
-    setBedList: (
+    setBedType: (
       state,
       action: PayloadAction<{ id: number; type: BedType }>
     ) => {
@@ -86,11 +86,29 @@ const registerRoom = createSlice({
       action: PayloadAction<{ value: number; id: number; type: string }>
     ) => {
       const { value, id, type } = action.payload;
-      const bedType = state.bedroomDetail[id - 1].beds.find(
+      // 해당 type을 가진 항목의 index
+      const index = state.bedroomDetail[id - 1].beds.findIndex(
         (bed) => bed.type === type
       );
-      if (bedType) {
-        bedType.count = value;
+      state.bedroomDetail[id - 1].beds[index].count = value;
+      // 카운트가 0이면 해당 index의 항목을 삭제
+      if (value === 0) {
+        state.bedroomDetail[id - 1].beds.splice(index, 1);
+      }
+    },
+    setPublicBedList: (state, action: PayloadAction<BedType>) => {
+      state.publicBedList.push({ type: action.payload, count: 1 });
+    },
+    setPublicBedCount: (
+      state,
+      action: PayloadAction<{ value: number; type: BedType }>
+    ) => {
+      const { value, type } = action.payload;
+      const index = state.publicBedList.findIndex((bed) => bed.type === type);
+      if (value !== 0) {
+        state.publicBedList[index].count = value;
+      } else {
+        state.publicBedList.splice(index, 1);
       }
     },
   },
