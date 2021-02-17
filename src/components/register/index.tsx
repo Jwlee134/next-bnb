@@ -8,6 +8,8 @@ import RegisterBathroom from "./bathroom";
 import RegisterBedrooms from "./bedroom";
 import RegisterBuilding from "./building";
 import RegisterLocation from "./location/Location";
+import RegisterAmentities from "./amentities";
+import RegisterConveniences from "./conveniences";
 
 // window 객체를 사용할 컴포넌트이므로 서버 사이드 렌더링 방지
 const RegisterGeometry = dynamic(import("./location/Geometry"), { ssr: false });
@@ -29,9 +31,11 @@ const Container = styled.div`
     margin-bottom: 6px;
   }
   p {
-    font-weight: 500;
+    font-weight: 400;
     color: ${palette.gray_76};
     margin-bottom: 24px;
+    max-width: 500px;
+    line-height: 1.2;
   }
 `;
 
@@ -46,6 +50,8 @@ const RegisterRoom = () => {
       {name === "bathroom" && <RegisterBathroom />}
       {name === "location" && <RegisterLocation />}
       {name === "geometry" && <RegisterGeometry />}
+      {name === "amentities" && <RegisterAmentities />}
+      {name === "conveniences" && <RegisterConveniences />}
     </Container>
   );
 };

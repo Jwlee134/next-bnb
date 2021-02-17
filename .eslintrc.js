@@ -18,6 +18,8 @@ module.exports = {
     indent: "off", // 들여쓰기시에 무조건 스페이스 4칸 경고 제거
     quotes: ["error", "double"], // 문자열 더블 쿼터 허용
     "react/no-unescaped-entities": "off", // 문자열 내에서 " ' > } 허용
+    "no-unused-vars": "off", //사용안한 변수 경고 중복
+    "@typescript-eslint/no-unused-vars": "warn", //사용안한 변수는 경고
     "spaced-comment": "off", // 주석을 뒤에 달 수 있게 허용
     "react/react-in-jsx-scope": "off", // React를 꼭 import할 필요 없음
     "linebreak-style": 0, // Expected linebreaks to be 'LF' but found 'CRLF' 경고 제거

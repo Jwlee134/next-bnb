@@ -48,7 +48,7 @@ interface Props {
   description?: string;
   minValue?: number;
   unitNumber?: number;
-  onClick: (value: number) => void;
+  handleClick: (value: number) => void;
   style?: Object;
 }
 
@@ -58,7 +58,7 @@ const Counter = ({
   description,
   minValue = 0,
   unitNumber = 1,
-  onClick,
+  handleClick,
   style,
 }: Props) => {
   return (
@@ -71,12 +71,12 @@ const Counter = ({
         <button
           type="button"
           disabled={value === minValue}
-          onClick={() => onClick(value - unitNumber)}
+          onClick={() => handleClick(value - unitNumber)}
         >
           <CounterMinusIcon />
         </button>
         <span>{value}</span>
-        <button type="button" onClick={() => onClick(value + unitNumber)}>
+        <button type="button" onClick={() => handleClick(value + unitNumber)}>
           <CounterPlusIcon />
         </button>
       </ButtonContainer>

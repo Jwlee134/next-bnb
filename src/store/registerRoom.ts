@@ -21,6 +21,8 @@ interface State {
   postcode: string;
   latitude: number;
   longitude: number;
+  amentities: string[];
+  conveniences: string[];
 }
 
 const initialState: State = {
@@ -43,6 +45,8 @@ const initialState: State = {
   postcode: "", // 우편번호
   latitude: 0, // 위도
   longitude: 0, // 경도
+  amentities: [], // 편의시설
+  conveniences: [], // 편의공간
 };
 
 const registerRoom = createSlice({
@@ -137,29 +141,35 @@ const registerRoom = createSlice({
     setBathroomType: (state, action: PayloadAction<"public" | "private">) => {
       state.bathroomType = action.payload;
     },
-    setCountry(state, action: PayloadAction<string>) {
+    setCountry: (state, action: PayloadAction<string>) => {
       state.country = action.payload;
     },
-    setCity(state, action: PayloadAction<string>) {
+    setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     },
-    setDistrict(state, action: PayloadAction<string>) {
+    setDistrict: (state, action: PayloadAction<string>) => {
       state.district = action.payload;
     },
-    setStreetAddress(state, action: PayloadAction<string>) {
+    setStreetAddress: (state, action: PayloadAction<string>) => {
       state.streetAddress = action.payload;
     },
-    setDetailAddress(state, action: PayloadAction<string>) {
+    setDetailAddress: (state, action: PayloadAction<string>) => {
       state.detailAddress = action.payload;
     },
-    setPostcode(state, action: PayloadAction<string>) {
+    setPostcode: (state, action: PayloadAction<string>) => {
       state.postcode = action.payload;
     },
-    setLatitude(state, action: PayloadAction<number>) {
+    setLatitude: (state, action: PayloadAction<number>) => {
       state.latitude = action.payload;
     },
-    setLongitude(state, action: PayloadAction<number>) {
+    setLongitude: (state, action: PayloadAction<number>) => {
       state.longitude = action.payload;
+    },
+    setAmentities: (state, action: PayloadAction<string[]>) => {
+      state.amentities = action.payload;
+    },
+    setConveniences: (state, action: PayloadAction<string[]>) => {
+      state.conveniences = action.payload;
     },
   },
 });

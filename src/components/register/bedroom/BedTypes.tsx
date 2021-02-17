@@ -100,7 +100,9 @@ const BedTypes = ({ bedroom }: Props) => {
             <CounterContainer key={index}>
               <Counter
                 label={bed.type}
-                onClick={(value) => handleClick(value, bedroom.id, bed.type)}
+                handleClick={(value) =>
+                  handleClick(value, bedroom.id, bed.type)
+                }
                 value={bed.count}
               />
             </CounterContainer>

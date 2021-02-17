@@ -19,6 +19,7 @@ const OptionLabel = styled.label`
   cursor: pointer;
   display: flex;
   position: relative;
+  width: fit-content;
 `;
 
 const Input = styled.input<{ isValid: boolean; validateMode: boolean }>`
