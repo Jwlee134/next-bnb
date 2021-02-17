@@ -44,6 +44,7 @@ module.exports = {
     "no-plusplus": "off",
     "no-undef": "off",
     "no-alert": "off",
+    "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       1,
       { extensions: [".js", ".jsx", ".tsx"] }, // jsx를 사용가능한 파일 확장자명 설정
@@ -61,8 +62,6 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      // Unable to resolve path to module 경고 제거
-      typescript: {},
       node: {
         extensions: [".js", ".jsx", ".ts", ".tsx", ".d.ts"],
       },
