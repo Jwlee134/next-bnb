@@ -126,6 +126,7 @@ const useModal = () => {
         ref.current
       );
     }
+    return null;
   };
 
   return { openModal, closeModal, ModalPortal };
