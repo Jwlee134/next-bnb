@@ -7,10 +7,10 @@ import styled from "styled-components";
 import palette from "src/styles/palette";
 import { uploadFileAPI } from "src/lib/api/files";
 import { registerRoomActions } from "src/store/registerRoom";
+import useSnackBar from "src/hooks/useSnackBar";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 import UploadIcon from "../../../../public/static/svg/register/upload.svg";
 import PhotoCardList from "./PhotoCardList";
-import useSnackBar from "src/hooks/useSnackBar";
 
 const RegisterRoomBody = styled.div``;
 
@@ -52,12 +52,15 @@ const RegisterPhoto = () => {
       const formdata = new FormData();
       formdata.append("file", file);
       try {
-        toggleShow(true);
+        toggleShow(true, "info", "사진을 업로드 중입니다.");
         const { data } = await uploadFileAPI(formdata);
         dispatch(registerRoomActions.setPhotos([...photos, data]));
         toggleShow(false);
       } catch (error) {
-        console.log(error);
+        toggleShow(true, "error", "오류가 발생했습니다.");
+        setTimeout(() => {
+          toggleShow(false);
+        }, 2000);
       }
     }
   };

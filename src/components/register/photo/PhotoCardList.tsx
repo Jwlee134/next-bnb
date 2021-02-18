@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import palette from "src/styles/palette";
 
-import { uploadFileAPI } from "src/lib/api/files";
-import { registerRoomActions } from "src/store/registerRoom";
 import { useDispatch } from "react-redux";
+import { deleteFileAPI, uploadFileAPI } from "src/lib/api/files";
+import { registerRoomActions } from "src/store/registerRoom";
+import useSnackBar from "src/hooks/useSnackBar";
+
 import PencilIcon from "../../../../public/static/svg/register/photo/pencil.svg";
 import TrashCanIcon from "../../../../public/static/svg/register/photo/trash_can.svg";
 import GrayPlusIcon from "../../../../public/static/svg/register/photo/gray_plus.svg";
-import useSnackBar from "src/hooks/useSnackBar";
 
 const Container = styled.div`
   width: 858px;
@@ -97,22 +98,36 @@ const PhotoCardList = ({ photos }: { photos: string[] }) => {
         const formdata = new FormData();
         formdata.append("file", file);
         try {
-          toggleShow(true);
+          toggleShow(true, "info", "사진을 업로드 중입니다.");
           const { data } = await uploadFileAPI(formdata);
           dispatch(registerRoomActions.setPhotos([...photos, data]));
           toggleShow(false);
         } catch (error) {
-          console.log(error);
+          toggleShow(true, "error", "오류가 발생했습니다.");
+          setTimeout(() => {
+            toggleShow(false);
+          }, 2000);
         }
       }
     };
     el.click();
   };
 
-  const deletePhoto = (index: number) => {
-    const newPhotos = [...photos];
-    newPhotos.splice(index, 1);
-    dispatch(registerRoomActions.setPhotos(newPhotos));
+  const deletePhoto = async (index: number) => {
+    const key = photos[index].split("/").pop();
+    if (key) {
+      try {
+        await deleteFileAPI(key);
+        const newPhotos = [...photos];
+        newPhotos.splice(index, 1);
+        dispatch(registerRoomActions.setPhotos(newPhotos));
+      } catch (error) {
+        toggleShow(true, "error", "오류가 발생했습니다.");
+        setTimeout(() => {
+          toggleShow(false);
+        }, 2000);
+      }
+    }
   };
 
   const editPhoto = (index: number) => {
@@ -125,14 +140,17 @@ const PhotoCardList = ({ photos }: { photos: string[] }) => {
         const formdata = new FormData();
         formdata.append("file", file);
         try {
-          toggleShow(true);
+          toggleShow(true, "info", "사진을 업로드 중입니다.");
           const { data } = await uploadFileAPI(formdata);
           const newPhotos = [...photos];
           newPhotos[index] = data;
           dispatch(registerRoomActions.setPhotos(newPhotos));
           toggleShow(false);
         } catch (error) {
-          console.log(error);
+          toggleShow(true, "error", "오류가 발생했습니다.");
+          setTimeout(() => {
+            toggleShow(false);
+          }, 2000);
         }
       }
     };

@@ -1,30 +1,56 @@
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import InfoIcon from "../../public/static/svg/snackBar/info.svg";
+import ErrorIcon from "../../public/static/svg/snackBar/error.svg";
+import SuccessIcon from "../../public/static/svg/snackBar/success.svg";
+
+interface ContainerProps {
+  show: boolean;
+  type: "success" | "error" | "info";
+}
 
 const up = keyframes`
-    0% {
-        transform: translateY(100px);
-    }
-    100% {
-        transform: translateY(-10px);
-    }
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
 `;
 
 const down = keyframes`
-    0% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(100px);
-    }
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(100px);
+  }
 `;
 
-const Container = styled.div<{ show: boolean }>`
+const getTypes = (type: "success" | "error" | "info") => {
+  switch (type) {
+    case "success":
+      return css`
+        background-color: #4caf50;
+      `;
+    case "error":
+      return css`
+        background-color: #f44336;
+      `;
+    case "info":
+      return css`
+        background-color: #2196f3;
+      `;
+    default:
+      return css``;
+  }
+};
+
+const Container = styled.div<ContainerProps>`
+  ${({ type }) => getTypes(type)}
   svg {
     margin-right: 8px;
   }
-  background-color: #2196f3;
   position: fixed;
   bottom: 20px;
   right: 50%;
@@ -52,8 +78,16 @@ const Container = styled.div<{ show: boolean }>`
 const useSnackBar = () => {
   const [show, setShow] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const [type, setType] = useState<"info" | "error" | "success">("info");
+  const [text, setText] = useState("");
 
-  const toggleShow = (value: boolean) => {
+  const toggleShow = (
+    value: boolean,
+    barType?: "error" | "success" | "info",
+    message?: string
+  ) => {
+    if (barType) setType(barType);
+    if (message) setText(message);
     setShow(value);
     if (value) {
       setAnimate(true);
@@ -67,9 +101,13 @@ const useSnackBar = () => {
   const SnackBar = () => {
     if (!animate && !show) return null;
     return (
-      <Container show={show}>
-        <InfoIcon width="22" height="22" fill="white" />
-        사진을 업로드 중입니다.
+      <Container show={show} type={type}>
+        {type === "info" && <InfoIcon width="22" height="22" fill="white" />}
+        {type === "error" && <ErrorIcon width="22" height="22" fill="white" />}
+        {type === "success" && (
+          <SuccessIcon width="22" height="22" fill="white" />
+        )}
+        {text}
       </Container>
     );
   };
