@@ -18,6 +18,7 @@ const Container = styled.div`
   padding: 0px 80px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;
+  z-index: 10;
   div:last-child {
     position: relative;
   }

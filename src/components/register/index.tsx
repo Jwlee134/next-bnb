@@ -7,12 +7,13 @@ import palette from "src/styles/palette";
 import RegisterBathroom from "./bathroom";
 import RegisterBedrooms from "./bedroom";
 import RegisterBuilding from "./building";
-import RegisterLocation from "./location/Location";
+import RegisterLocation from "./location";
 import RegisterAmentities from "./amentities";
 import RegisterConveniences from "./conveniences";
+import RegisterPhoto from "./photo";
 
 // window 객체를 사용할 컴포넌트이므로 서버 사이드 렌더링 방지
-const RegisterGeometry = dynamic(import("./location/Geometry"), { ssr: false });
+const RegisterGeometry = dynamic(import("./geometry"), { ssr: false });
 
 const Container = styled.div`
   padding: 62px 30px 0px 30px;
@@ -52,6 +53,7 @@ const RegisterRoom = () => {
       {name === "geometry" && <RegisterGeometry />}
       {name === "amentities" && <RegisterAmentities />}
       {name === "conveniences" && <RegisterConveniences />}
+      {name === "photo" && <RegisterPhoto />}
     </Container>
   );
 };

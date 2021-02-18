@@ -32,7 +32,7 @@ const RegisterConveniences = () => {
           handleChange={handleChange}
         />
       </RegisterRoomBody>
-      <RegisterRoomFooter isValid={true} nextHref="/" />
+      <RegisterRoomFooter isValid={true} nextHref="/room/register/photo" />
     </>
   );
 };

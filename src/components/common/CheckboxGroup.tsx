@@ -61,6 +61,7 @@ const CheckboxGroup = ({ items, options, handleChange }: Props) => {
           <Input
             type="checkbox"
             value={option}
+            checked={items.includes(option)}
             onChange={(e) => {
               if (e.target.checked) {
                 handleChange([...items, e.target.value]);

@@ -23,6 +23,7 @@ interface State {
   longitude: number;
   amentities: string[];
   conveniences: string[];
+  photos: string[];
 }
 
 const initialState: State = {
@@ -47,6 +48,7 @@ const initialState: State = {
   longitude: 0, // 경도
   amentities: [], // 편의시설
   conveniences: [], // 편의공간
+  photos: [], // 숙소 사진
 };
 
 const registerRoom = createSlice({
@@ -170,6 +172,9 @@ const registerRoom = createSlice({
     },
     setConveniences: (state, action: PayloadAction<string[]>) => {
       state.conveniences = action.payload;
+    },
+    setPhotos: (state, action: PayloadAction<string[]>) => {
+      state.photos = action.payload;
     },
   },
 });
