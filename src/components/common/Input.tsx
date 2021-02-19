@@ -81,7 +81,7 @@ const Input = ({
     >
       {label && <span>{label}</span>}
       <input {...props} />
-      <IconContainer>{icon}</IconContainer>
+      {icon && <IconContainer>{icon}</IconContainer>}
       {!isValid && useValidation && validateMode && errorMessage && (
         <ErrorMessage>{errorMessage}</ErrorMessage>
       )}
