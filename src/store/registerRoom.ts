@@ -27,6 +27,8 @@ interface State {
   description: string;
   title: string;
   price: number;
+  startDate: string | null;
+  endDate: string | null;
 }
 
 const initialState: State = {
@@ -54,7 +56,9 @@ const initialState: State = {
   photos: [], // 숙소 사진
   description: "", // 숙소 설명
   title: "", // 숙소 제목
-  price: 0,
+  price: 0, // 숙소 요금
+  startDate: null, // 예약 시작 날짜
+  endDate: null, // 예약 마감 날짜
 };
 
 const registerRoom = createSlice({
@@ -190,6 +194,12 @@ const registerRoom = createSlice({
     },
     setPrice: (state, action: PayloadAction<number>) => {
       state.price = action.payload;
+    },
+    setStartDate: (state, action: PayloadAction<string | null>) => {
+      state.startDate = action.payload;
+    },
+    setEndDate: (state, action: PayloadAction<string | null>) => {
+      state.endDate = action.payload;
     },
   },
 });

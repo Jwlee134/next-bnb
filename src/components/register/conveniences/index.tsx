@@ -29,7 +29,7 @@ const RegisterConveniences = () => {
         <CheckboxGroup
           items={conveniences}
           options={convinienceList}
-          handleChange={handleChange}
+          onChange={handleChange}
         />
       </RegisterRoomBody>
       <RegisterRoomFooter isValid={true} nextHref="/room/register/photo" />

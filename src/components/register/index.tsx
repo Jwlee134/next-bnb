@@ -14,6 +14,7 @@ import RegisterPhoto from "./photo";
 import RegisterDescription from "./description";
 import RegisterTitle from "./title";
 import RegisterPrice from "./price";
+import RegisterDate from "./date";
 
 // window 객체를 사용할 컴포넌트이므로 서버 사이드 렌더링 방지
 const RegisterGeometry = dynamic(import("./geometry"), { ssr: false });
@@ -60,6 +61,7 @@ const RegisterRoom = () => {
       {name === "description" && <RegisterDescription />}
       {name === "title" && <RegisterTitle />}
       {name === "price" && <RegisterPrice />}
+      {name === "date" && <RegisterDate />}
     </Container>
   );
 };

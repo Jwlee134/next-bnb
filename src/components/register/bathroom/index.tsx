@@ -36,7 +36,7 @@ const RegisterBathroom = () => {
         <Counter
           label="욕실"
           value={bathroomCount}
-          handleClick={handleClick}
+          onClick={handleClick}
           unitNumber={0.5}
           style={{ width: 320, marginBottom: 32 }}
         />

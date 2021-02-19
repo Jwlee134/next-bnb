@@ -30,7 +30,7 @@ const RegisterAmentities = () => {
         <CheckboxGroup
           items={amentities}
           options={amentityList}
-          handleChange={handleChange}
+          onChange={handleChange}
         />
       </RegisterRoomBody>
       <RegisterRoomFooter

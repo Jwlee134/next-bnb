@@ -78,7 +78,7 @@ const PublicBedTypes = () => {
               <Counter
                 label={bed.type}
                 value={bed.count}
-                handleClick={(value) => handleClick(value, bed.type)}
+                onClick={(value) => handleClick(value, bed.type)}
               />
             </CounterContainer>
           ))}

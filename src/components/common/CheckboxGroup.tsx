@@ -50,10 +50,10 @@ const Option = styled.span`
 interface Props {
   items: string[];
   options: string[];
-  handleChange: (selected: string[]) => void;
+  onChange: (selected: string[]) => void;
 }
 
-const CheckboxGroup = ({ items, options, handleChange }: Props) => {
+const CheckboxGroup = ({ items, options, onChange }: Props) => {
   return (
     <Container>
       {options.map((option, index) => (
@@ -64,9 +64,9 @@ const CheckboxGroup = ({ items, options, handleChange }: Props) => {
             checked={items.includes(option)}
             onChange={(e) => {
               if (e.target.checked) {
-                handleChange([...items, e.target.value]);
+                onChange([...items, e.target.value]);
               } else {
-                handleChange(items.filter((item) => item !== e.target.value));
+                onChange(items.filter((item) => item !== e.target.value));
               }
             }}
           />

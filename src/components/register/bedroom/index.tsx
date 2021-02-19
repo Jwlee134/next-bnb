@@ -68,7 +68,7 @@ const RegisterBedrooms = () => {
           <Counter
             label="최대 숙박 인원"
             value={maximumGuestCount}
-            handleClick={handleMaximumGuestCount}
+            onClick={handleMaximumGuestCount}
           />
         </CommonContainer>
         <CommonContainer>
@@ -84,7 +84,7 @@ const RegisterBedrooms = () => {
         </CommonContainer>
         <CommonContainer style={{ marginBottom: 45 }}>
           <Title>게스트가 사용할 수 있는 침대는 몇 개인가요?</Title>
-          <Counter label="침대" value={bedCount} handleClick={handleBedCount} />
+          <Counter label="침대" value={bedCount} onClick={handleBedCount} />
         </CommonContainer>
         <BedTypetitle>침대 유형</BedTypetitle>
         <BedTypeDescription>
