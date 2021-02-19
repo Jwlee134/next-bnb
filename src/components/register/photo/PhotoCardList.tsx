@@ -131,16 +131,18 @@ const PhotoCardList = ({ photos }: { photos: string[] }) => {
   };
 
   const editPhoto = (index: number) => {
+    const key = photos[index].split("/").pop();
     const el = document.createElement("input");
     el.type = "file";
     el.accept = "image/*";
     el.onchange = async (e) => {
       const file = (e.target as HTMLInputElement)?.files?.[0];
-      if (file) {
+      if (file && key) {
         const formdata = new FormData();
         formdata.append("file", file);
         try {
           toggleShow(true, "info", "사진을 업로드 중입니다.");
+          await deleteFileAPI(key);
           const { data } = await uploadFileAPI(formdata);
           const newPhotos = [...photos];
           newPhotos[index] = data;
