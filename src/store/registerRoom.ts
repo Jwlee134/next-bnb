@@ -26,6 +26,7 @@ interface State {
   photos: string[];
   description: string;
   title: string;
+  price: number;
 }
 
 const initialState: State = {
@@ -53,6 +54,7 @@ const initialState: State = {
   photos: [], // 숙소 사진
   description: "", // 숙소 설명
   title: "", // 숙소 제목
+  price: 0,
 };
 
 const registerRoom = createSlice({
@@ -185,6 +187,9 @@ const registerRoom = createSlice({
     },
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
+    },
+    setPrice: (state, action: PayloadAction<number>) => {
+      state.price = action.payload;
     },
   },
 });

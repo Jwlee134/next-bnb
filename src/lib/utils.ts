@@ -15,3 +15,9 @@ export const getNumber = (string: string) => {
   const number = string.match(/\d/g)?.join("");
   return Number(number);
 };
+
+// 금액을 입력하면 금액에 ,를 넣어주는 함수
+// https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+export const numberWithCommas = (input: string) => {
+  return input.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+};
