@@ -28,6 +28,7 @@ const RegisterTitle = () => {
           onChange={handleChange}
           value={title}
           style={{ width: 385, marginBottom: 24 }}
+          isValid={!!title}
         />
       </RegisterRoomBody>
       <RegisterRoomFooter isValid={!!title} nextHref="/room/register/price" />

@@ -204,7 +204,6 @@ const SignUpModal = ({ closeModal }: Props) => {
           onChange={handleEmail}
           value={email}
           errorMessage="이메일을 입력하세요."
-          useValidation={true}
           isValid={!!email} //빈 문자열이면 false, 아니면 true 반환
         />
         <Input
@@ -214,7 +213,6 @@ const SignUpModal = ({ closeModal }: Props) => {
           onChange={handleFirstname}
           value={firstname}
           errorMessage="이름을 입력하세요."
-          useValidation={true}
           isValid={!!firstname} // 빈 문자열이면 false, 아니면 true 반환
         />
         <Input
@@ -224,7 +222,6 @@ const SignUpModal = ({ closeModal }: Props) => {
           onChange={handleLastname}
           value={lastname}
           errorMessage="성을 입력하세요."
-          useValidation={true}
           isValid={!!lastname} // 빈 문자열이면 false, 아니면 true 반환
         />
         <Input
@@ -234,7 +231,6 @@ const SignUpModal = ({ closeModal }: Props) => {
           onChange={handlePassword}
           value={password}
           errorMessage="비밀번호를 입력하세요."
-          useValidation={true}
           isValid={overMinLength && hasNumberOrSymbol}
           onFocus={handleFocus}
         />

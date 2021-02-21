@@ -15,9 +15,11 @@ import RegisterDescription from "./description";
 import RegisterTitle from "./title";
 import RegisterPrice from "./price";
 import RegisterDate from "./date";
+import RegisterChecklist from "./checklist";
 
 // window 객체를 사용할 컴포넌트이므로 서버 사이드 렌더링 방지
 const RegisterGeometry = dynamic(import("./geometry"), { ssr: false });
+// 이렇게 하거나 window 객체를 사용할함수를 useEffect 내에 넣어도 됨
 
 const Container = styled.div`
   padding: 62px 30px 0px 30px;
@@ -62,6 +64,7 @@ const RegisterRoom = () => {
       {name === "title" && <RegisterTitle />}
       {name === "price" && <RegisterPrice />}
       {name === "date" && <RegisterDate />}
+      {name === "checklist" && <RegisterChecklist />}
     </Container>
   );
 };

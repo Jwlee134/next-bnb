@@ -25,9 +25,16 @@ const RegisterDescription = () => {
           숙소의 장점, 특별한 편의시설(예: 빠른 와이파이 또는 주차 시설)과 주변
           지역의 매력을 소개해주세요.
         </p>
-        <Textarea value={description} onChange={handleChange} />
+        <Textarea
+          value={description}
+          isValid={!!description}
+          onChange={handleChange}
+        />
       </RegisterRoomBody>
-      <RegisterRoomFooter isValid={true} nextHref="/room/register/title" />
+      <RegisterRoomFooter
+        isValid={!!description}
+        nextHref="/room/register/title"
+      />
     </>
   );
 };

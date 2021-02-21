@@ -29,6 +29,7 @@ interface State {
   price: number;
   startDate: string | null;
   endDate: string | null;
+  anytime: boolean;
 }
 
 const initialState: State = {
@@ -59,6 +60,7 @@ const initialState: State = {
   price: 0, // 숙소 요금
   startDate: null, // 예약 시작 날짜
   endDate: null, // 예약 마감 날짜
+  anytime: false, // 예약 날짜 항상 가능 여부
 };
 
 const registerRoom = createSlice({
@@ -68,11 +70,7 @@ const registerRoom = createSlice({
     setlargeBuildingType: (state, action: PayloadAction<string>) => {
       state.largeBuildingType = action.payload;
     },
-    setBuildingType: (state, action: PayloadAction<string>) => {
-      if (action.payload === "") {
-        state.buildingType = null;
-        return;
-      }
+    setBuildingType: (state, action: PayloadAction<string | null>) => {
       state.buildingType = action.payload;
     },
     setRoomType: (
@@ -200,6 +198,9 @@ const registerRoom = createSlice({
     },
     setEndDate: (state, action: PayloadAction<string | null>) => {
       state.endDate = action.payload;
+    },
+    setAnytime: (state, action: PayloadAction<boolean>) => {
+      state.anytime = action.payload;
     },
   },
 });

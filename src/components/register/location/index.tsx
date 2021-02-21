@@ -97,12 +97,11 @@ const RegisterLocation = () => {
           <Input
             label="동호수(선택사항)"
             style={{ marginBottom: 24 }}
-            useValidation={false}
             onChange={handleDetailAddress}
             value={detailAddress}
           />
           <Input
-            label="우편변호"
+            label="우편번호"
             style={{ marginBottom: 24 }}
             onChange={handlePostcode}
             value={postcode}
@@ -112,7 +111,7 @@ const RegisterLocation = () => {
       </RegisterRoomBody>
       <RegisterRoomFooter
         isValid={
-          !!country || !!city || !!district || !!streetAddress || !!postcode
+          !!country && !!city && !!district && !!streetAddress && !!postcode
         }
         nextHref="/room/register/geometry"
       />

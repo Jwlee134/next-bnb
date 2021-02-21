@@ -1,7 +1,25 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import TextareaAutosize from "react-autosize-textarea";
 import palette from "src/styles/palette";
+import useValidateMode from "src/hooks/useValidateMode";
+
+interface TextareaProps {
+  isValid: boolean;
+  validateMode: boolean;
+}
+
+const Container = styled.div<TextareaProps>`
+  ${({ isValid, validateMode }) =>
+    !isValid &&
+    validateMode &&
+    css`
+      textarea {
+        border-color: ${palette.tawny};
+        background-color: ${palette.snow};
+      }
+    `}
+`;
 
 const StyledTextarea = styled(TextareaAutosize)`
   width: 429px;
@@ -20,10 +38,17 @@ const StyledTextarea = styled(TextareaAutosize)`
   }
 `;
 
-interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  isValid?: boolean;
+}
 
-const Textarea = ({ ...props }: Props) => {
-  return <StyledTextarea {...props} />;
+const Textarea = ({ isValid = true, ...props }: Props) => {
+  const { validateMode } = useValidateMode();
+  return (
+    <Container isValid={isValid} validateMode={validateMode}>
+      <StyledTextarea {...props} />
+    </Container>
+  );
 };
 
 export default React.memo(Textarea);

@@ -58,7 +58,7 @@ const Container = styled.div<ContainerProps>`
   color: white;
   display: flex;
   align-items: center;
-  width: 300px;
+  width: fit-content;
   margin-right: -150px;
   border-radius: 4px;
   padding: 6px 16px;

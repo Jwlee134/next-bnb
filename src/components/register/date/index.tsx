@@ -6,6 +6,7 @@ import { useSelector } from "src/store";
 import { registerRoomActions } from "src/store/registerRoom";
 import styled from "styled-components";
 import palette from "src/styles/palette";
+import Checkbox from "src/components/common/Checkbox";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 
 const RegisterRoomBody = styled.div``;
@@ -13,6 +14,7 @@ const RegisterRoomBody = styled.div``;
 const DateContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 24px;
   input {
     width: 100%;
     height: 46px;
@@ -40,7 +42,9 @@ const StartDate = styled.div`
 const EndDate = styled.div``;
 
 const RegisterDate = () => {
-  const { startDate, endDate } = useSelector((state) => state.registerRoom);
+  const { startDate, endDate, anytime } = useSelector(
+    (state) => state.registerRoom
+  );
   const dispatch = useDispatch();
 
   const dateStartDate = startDate ? new Date(startDate) : null;
@@ -52,6 +56,10 @@ const RegisterDate = () => {
 
   const handleEnd = (date: Date) => {
     dispatch(registerRoomActions.setEndDate(format(date, "yyyy-MM-dd")));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(registerRoomActions.setAnytime(e.target.checked));
   };
 
   return (
@@ -88,6 +96,11 @@ const RegisterDate = () => {
             </label>
           </EndDate>
         </DateContainer>
+        <Checkbox
+          option="언제든지 가능"
+          checked={anytime}
+          onChange={handleChange}
+        />
       </RegisterRoomBody>
       <RegisterRoomFooter isValid={true} nextHref="/room/register/checklist" />
     </>

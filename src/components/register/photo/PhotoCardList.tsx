@@ -35,7 +35,7 @@ const FirstPhoto = styled.div`
 `;
 
 const Rest = styled.div`
-  float: left;
+  float: left; // or display: inline-block;
   width: calc((100% - 48px) / 3);
   height: 180px;
   margin-right: 24px;

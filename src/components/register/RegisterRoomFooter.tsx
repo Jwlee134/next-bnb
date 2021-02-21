@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
 import useValidateMode from "src/hooks/useValidateMode";
+import useSnackBar from "src/hooks/useSnackBar";
 import palette from "src/styles/palette";
 import Button from "../common/Button";
 import BackArrowIcon from "../../../public/static/svg/register/register_room_footer_back_arrow.svg";
@@ -32,10 +32,20 @@ const BackButton = styled.a`
 interface Props {
   nextHref: string;
   isValid?: boolean;
+  snackBar?: boolean;
+  snackBarMessage?: string;
+  submit?: boolean;
 }
 
-const RegisterRoomFooter = ({ nextHref, isValid = false }: Props) => {
+const RegisterRoomFooter = ({
+  nextHref,
+  isValid = false,
+  snackBar = false,
+  snackBarMessage,
+  submit = false,
+}: Props) => {
   const { setValidateMode } = useValidateMode();
+  const { toggleShow, SnackBar } = useSnackBar();
 
   const router = useRouter();
 
@@ -43,7 +53,15 @@ const RegisterRoomFooter = ({ nextHref, isValid = false }: Props) => {
     if (!isValid) {
       e.preventDefault();
       setValidateMode(true);
+      if (snackBar) {
+        toggleShow(true, "error", snackBarMessage);
+        setTimeout(() => {
+          toggleShow(false);
+        }, 2000);
+      }
+      return;
     }
+    router.push(nextHref);
   };
 
   useEffect(() => {
@@ -57,16 +75,13 @@ const RegisterRoomFooter = ({ nextHref, isValid = false }: Props) => {
       <BackButton onClick={() => router.back()}>
         <BackArrowIcon /> 뒤로
       </BackButton>
-      <Link href={nextHref}>
-        <a>
-          <Button
-            style={{ backgroundColor: palette.dark_cyan, width: 62 }}
-            onClick={handleClick}
-          >
-            계속
-          </Button>
-        </a>
-      </Link>
+      <Button
+        style={{ backgroundColor: palette.dark_cyan, width: submit ? 102 : 62 }}
+        onClick={handleClick}
+      >
+        {submit ? "등록하기" : "계속"}
+      </Button>
+      <SnackBar />
     </Container>
   );
 };

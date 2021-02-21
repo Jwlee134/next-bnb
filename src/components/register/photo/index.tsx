@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { useSelector } from "src/store";
@@ -11,6 +11,7 @@ import useSnackBar from "src/hooks/useSnackBar";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 import UploadIcon from "../../../../public/static/svg/register/upload.svg";
 import PhotoCardList from "./PhotoCardList";
+import useValidateMode from "src/hooks/useValidateMode";
 
 const RegisterRoomBody = styled.div``;
 
@@ -72,7 +73,6 @@ const RegisterPhoto = () => {
         <h3>7단계</h3>
         <p>
           게스트가 사진을 보고 숙소의 느낌을 생생히 떠올려볼 수 있도록 해주세요.
-          우선 사진 1장을 업로드하고 숙소를 등록한 후에 추가할 수 있습니다.
         </p>
         {/* lodash API 중 하나로 빈 배열이면 true 반환 */}
         {isEmpty(photos) && (
@@ -88,8 +88,10 @@ const RegisterPhoto = () => {
         {!isEmpty(photos) && <PhotoCardList photos={photos} />}
       </RegisterRoomBody>
       <RegisterRoomFooter
-        isValid={true}
+        isValid={!isEmpty(photos)}
         nextHref="/room/register/description"
+        snackBar={true}
+        snackBarMessage="최소 1장 이상의 사진이 필요합니다."
       />
       <SnackBar />
     </>

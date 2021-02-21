@@ -39,7 +39,7 @@ const RegisterBuilding = () => {
 
   const handleLargeBuildingType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(registerRoomActions.setlargeBuildingType(e.target.value));
-    dispatch(registerRoomActions.setBuildingType(""));
+    dispatch(registerRoomActions.setBuildingType(null));
   };
 
   const handleBuildingType = (e: React.ChangeEvent<HTMLSelectElement>) => {

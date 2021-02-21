@@ -103,7 +103,6 @@ const LoginModal = ({ closeModal }: Props) => {
           onChange={handleEmail}
           value={email}
           errorMessage="이메일을 입력하세요."
-          useValidation={true}
           isValid={!!email} //빈 문자열이면 false, 아니면 true 반환
         />
         <Input
@@ -113,7 +112,6 @@ const LoginModal = ({ closeModal }: Props) => {
           onChange={handlePassword}
           value={password}
           errorMessage="비밀번호를 입력하세요."
-          useValidation={true}
           isValid={!!password}
         />
         <ButtonContainer>
