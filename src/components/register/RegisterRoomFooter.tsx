@@ -9,6 +9,8 @@ import { useSelector } from "src/store";
 import { registerRoomAPI } from "src/lib/api/room";
 import Button from "../common/Button";
 import BackArrowIcon from "../../../public/static/svg/register/register_room_footer_back_arrow.svg";
+import { useDispatch } from "react-redux";
+import { registerRoomActions } from "src/store/registerRoom";
 
 const Container = styled.div`
   width: 100%;
@@ -50,6 +52,8 @@ const RegisterRoomFooter = ({
   const { setValidateMode } = useValidateMode();
   const { toggleShow, SnackBar } = useSnackBar();
 
+  const dispatch = useDispatch();
+
   const { id: userId } = useSelector((state) => state.user);
   const registerRoom = useSelector((state) => state.registerRoom);
 
@@ -75,6 +79,7 @@ const RegisterRoomFooter = ({
     };
     try {
       await registerRoomAPI(registerRoomBody);
+      dispatch(registerRoomActions.initData());
       router.push("/");
     } catch (error) {
       console.log(error);
