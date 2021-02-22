@@ -48,3 +48,14 @@ export interface RoomType {
   endDate: string | null;
   anytime: boolean;
 }
+
+export interface SearchRoomType {
+  location: string;
+  latitude: number;
+  longitude: number;
+  checkInDate: string | null;
+  checkOutDate: string | null;
+  adultCount: number;
+  childrenCount: number;
+  infantsCount: number;
+}

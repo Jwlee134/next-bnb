@@ -9,12 +9,14 @@ import user from "./user";
 import common from "./common";
 import auth from "./auth";
 import registerRoom from "./registerRoom";
+import searchRoom from "./searchRoom";
 
 const rootReducer = combineReducers({
   user,
   common,
   auth,
   registerRoom,
+  searchRoom,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

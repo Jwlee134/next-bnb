@@ -1,8 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import Home from "src/components/home";
 
-const Container = styled.div``;
+const index = () => <Home />;
 
-const Home = () => <Container></Container>;
-
-export default Home;
+export default index;
