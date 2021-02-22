@@ -171,6 +171,10 @@ const registerRoom = createSlice({
     setAnytime: (state, action: PayloadAction<boolean>) => {
       state.anytime = action.payload;
     },
+    initData: (state) => {
+      state = initialState;
+      return state;
+    },
   },
 });
 
