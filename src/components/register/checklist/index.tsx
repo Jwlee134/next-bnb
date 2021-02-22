@@ -1,10 +1,7 @@
 import React, { useMemo } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "src/store";
-import { registerRoomActions } from "src/store/registerRoom";
 import styled from "styled-components";
 import { isEmpty } from "lodash";
-import palette from "src/styles/palette";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 import CheckStep from "./CheckStep";
 
@@ -12,7 +9,6 @@ const RegisterRoomBody = styled.div``;
 
 const RegisterChecklist = () => {
   const registerRoom = useSelector((state) => state.registerRoom);
-  const dispatch = useDispatch();
 
   const isBuildingTypeActived = useMemo(() => {
     const {
@@ -29,12 +25,7 @@ const RegisterChecklist = () => {
 
   const isRoomTypeActived = useMemo(() => {
     const { maximumGuestCount, bedroomCount, bedCount } = registerRoom;
-    if (
-      !isBuildingTypeActived ||
-      !maximumGuestCount ||
-      !bedroomCount ||
-      !bedCount
-    ) {
+    if (!maximumGuestCount || !bedroomCount || !bedCount) {
       return false;
     }
     return true;
@@ -42,7 +33,7 @@ const RegisterChecklist = () => {
 
   const isBathroomActived = useMemo(() => {
     const { bathroomCount, bathroomType } = registerRoom;
-    if (!isRoomTypeActived || !bathroomCount || !bathroomType) {
+    if (!bathroomCount || !bathroomType) {
       return false;
     }
     return true;
@@ -50,54 +41,27 @@ const RegisterChecklist = () => {
 
   const isLocationActived = useMemo(() => {
     const { country, city, district, streetAddress, postcode } = registerRoom;
-    if (
-      !isBathroomActived ||
-      !country ||
-      !city ||
-      !district ||
-      !streetAddress ||
-      !postcode
-    ) {
+    if (!country || !city || !district || !streetAddress || !postcode) {
       return false;
     }
     return true;
   }, []);
 
-  const isAmentitiesActived = useMemo(() => {
-    if (!isLocationActived) return false;
-    return true;
-  }, []);
-
-  const isConveniencesActived = useMemo(() => {
-    if (!isAmentitiesActived) return false;
-    return true;
-  }, []);
-
   const isPhotosActived = useMemo(() => {
     const { photos } = registerRoom;
-    if (!isConveniencesActived || isEmpty(photos)) return false;
+    if (isEmpty(photos)) return false;
     return true;
   }, []);
 
   const isDescriptionActived = useMemo(() => {
     const { description } = registerRoom;
-    if (!isPhotosActived || !description) return false;
+    if (!description) return false;
     return true;
   }, []);
 
   const isTitleActived = useMemo(() => {
     const { title } = registerRoom;
-    if (!isDescriptionActived || !title) return false;
-    return true;
-  }, []);
-
-  const isPriceActived = useMemo(() => {
-    if (!isTitleActived) return false;
-    return true;
-  }, []);
-
-  const isDateActived = useMemo(() => {
-    if (!isPriceActived) return false;
+    if (!title) return false;
     return true;
   }, []);
 
@@ -114,12 +78,6 @@ const RegisterChecklist = () => {
     if (!isLocationActived) {
       return "location";
     }
-    if (!isAmentitiesActived) {
-      return "amentities";
-    }
-    if (!isConveniencesActived) {
-      return "conviniences";
-    }
     if (!isPhotosActived) {
       return "photo";
     }
@@ -128,9 +86,6 @@ const RegisterChecklist = () => {
     }
     if (!isTitleActived) {
       return "title";
-    }
-    if (!isDateActived) {
-      return "date";
     }
     return "";
   }, []);
@@ -166,14 +121,14 @@ const RegisterChecklist = () => {
         <CheckStep
           step="편의 시설"
           href="/room/register/amentities"
-          disabled={!isAmentitiesActived}
-          inProgress={stepInProgress === "amentities"}
+          disabled={false}
+          inProgress={false}
         />
         <CheckStep
           step="공용 공간"
           href="/room/register/conveniences"
-          disabled={!isConveniencesActived}
-          inProgress={stepInProgress === "conviniences"}
+          disabled={false}
+          inProgress={false}
         />
         <CheckStep
           step="사진"
@@ -202,14 +157,14 @@ const RegisterChecklist = () => {
         <CheckStep
           step="예약 날짜"
           href="/room/register/date"
-          disabled={!isDateActived}
-          inProgress={stepInProgress === "date"}
+          disabled={false}
+          inProgress={false}
         />
       </RegisterRoomBody>
       <RegisterRoomFooter
         submit={!stepInProgress && true}
         isValid={true}
-        nextHref="/room/register/checklist"
+        nextHref={`/room/register/${stepInProgress}`}
       />
     </>
   );

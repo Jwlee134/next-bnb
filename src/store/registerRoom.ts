@@ -1,38 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BedType } from "src/types/room";
+import { BedType, RoomType } from "src/types/room";
 
-interface State {
-  largeBuildingType: string | null;
-  buildingType: string | null;
-  roomType: string | null;
-  isForGuest: string | null;
-  maximumGuestCount: number;
-  bedroomCount: number;
-  bedCount: number;
-  bedroomDetail: { id: number; beds: { type: BedType; count: number }[] }[];
-  publicBedList: { type: BedType; count: number }[];
-  bathroomCount: number;
-  bathroomType: "private" | "public" | null;
-  country: string;
-  city: string;
-  district: string;
-  streetAddress: string;
-  detailAddress: string;
-  postcode: string;
-  latitude: number;
-  longitude: number;
-  amentities: string[];
-  conveniences: string[];
-  photos: string[];
-  description: string;
-  title: string;
-  price: number;
-  startDate: string | null;
-  endDate: string | null;
-  anytime: boolean;
-}
-
-const initialState: State = {
+const initialState: RoomType = {
   largeBuildingType: null, // 건물 유형 큰 범주
   buildingType: null, // 건물 유형
   roomType: null, // 숙소 유형

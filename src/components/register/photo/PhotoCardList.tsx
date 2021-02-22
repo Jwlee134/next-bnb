@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styled from "styled-components";
 import palette from "src/styles/palette";
 
@@ -51,9 +52,7 @@ const Rest = styled.div`
   }
 `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
+const Img = styled(Image)`
   border-radius: 6px;
 `;
 
@@ -165,7 +164,7 @@ const PhotoCardList = ({ photos }: { photos: string[] }) => {
         <React.Fragment key={index}>
           {index === 0 && (
             <FirstPhoto>
-              <Img src={photo} />
+              <Img src={photo} layout="fill" objectFit="cover" />
               <ButtonContainer>
                 <Button
                   type="button"
@@ -182,7 +181,7 @@ const PhotoCardList = ({ photos }: { photos: string[] }) => {
           )}
           {index !== 0 && (
             <Rest>
-              <Img src={photo} />
+              <Img src={photo} layout="fill" objectFit="cover" />
               <ButtonContainer>
                 <Button
                   type="button"

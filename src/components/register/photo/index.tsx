@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { isEmpty } from "lodash";
 import { useDispatch } from "react-redux";
 import { useSelector } from "src/store";
@@ -11,7 +11,6 @@ import useSnackBar from "src/hooks/useSnackBar";
 import RegisterRoomFooter from "../RegisterRoomFooter";
 import UploadIcon from "../../../../public/static/svg/register/upload.svg";
 import PhotoCardList from "./PhotoCardList";
-import useValidateMode from "src/hooks/useValidateMode";
 
 const RegisterRoomBody = styled.div``;
 
@@ -88,7 +87,7 @@ const RegisterPhoto = () => {
         {!isEmpty(photos) && <PhotoCardList photos={photos} />}
       </RegisterRoomBody>
       <RegisterRoomFooter
-        isValid={!isEmpty(photos)}
+        isValid={true}
         nextHref="/room/register/description"
         snackBar={true}
         snackBarMessage="최소 1장 이상의 사진이 필요합니다."

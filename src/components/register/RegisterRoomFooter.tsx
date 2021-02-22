@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import styled from "styled-components";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import useValidateMode from "src/hooks/useValidateMode";
 import useSnackBar from "src/hooks/useSnackBar";
 import palette from "src/styles/palette";
+import { useSelector } from "src/store";
+import { registerRoomAPI } from "src/lib/api/room";
 import Button from "../common/Button";
 import BackArrowIcon from "../../../public/static/svg/register/register_room_footer_back_arrow.svg";
 
@@ -47,6 +50,9 @@ const RegisterRoomFooter = ({
   const { setValidateMode } = useValidateMode();
   const { toggleShow, SnackBar } = useSnackBar();
 
+  const { id: userId } = useSelector((state) => state.user);
+  const registerRoom = useSelector((state) => state.registerRoom);
+
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -59,9 +65,20 @@ const RegisterRoomFooter = ({
           toggleShow(false);
         }, 2000);
       }
-      return;
     }
-    router.push(nextHref);
+  };
+
+  const handleSubmit = async () => {
+    const registerRoomBody = {
+      ...registerRoom,
+      hostId: userId,
+    };
+    try {
+      await registerRoomAPI(registerRoomBody);
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -75,12 +92,26 @@ const RegisterRoomFooter = ({
       <BackButton onClick={() => router.back()}>
         <BackArrowIcon /> 뒤로
       </BackButton>
-      <Button
-        style={{ backgroundColor: palette.dark_cyan, width: submit ? 102 : 62 }}
-        onClick={handleClick}
-      >
-        {submit ? "등록하기" : "계속"}
-      </Button>
+      {!submit && (
+        <Link href={nextHref}>
+          <a>
+            <Button
+              style={{ backgroundColor: palette.dark_cyan, width: 62 }}
+              onClick={handleClick}
+            >
+              계속
+            </Button>
+          </a>
+        </Link>
+      )}
+      {submit && (
+        <Button
+          style={{ backgroundColor: palette.dark_cyan, width: 102 }}
+          onClick={handleSubmit}
+        >
+          등록하기
+        </Button>
+      )}
       <SnackBar />
     </Container>
   );
