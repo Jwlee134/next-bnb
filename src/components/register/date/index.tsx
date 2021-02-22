@@ -102,7 +102,10 @@ const RegisterDate = () => {
           onChange={handleChange}
         />
       </RegisterRoomBody>
-      <RegisterRoomFooter isValid={true} nextHref="/room/register/checklist" />
+      <RegisterRoomFooter
+        isValid={!!anytime || (!!startDate && !!endDate)}
+        nextHref="/room/register/checklist"
+      />
     </>
   );
 };
