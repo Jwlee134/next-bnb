@@ -5,7 +5,6 @@ import ko from "date-fns/locale/ko";
 
 import "react-datepicker/dist/react-datepicker.css";
 import palette from "src/styles/palette";
-import { format } from "date-fns";
 
 const Container = styled.div`
   .react-datepicker {

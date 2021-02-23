@@ -10,6 +10,8 @@ import { wrapper } from "src/store";
 import { userActions } from "src/store/user";
 import axios from "./api";
 
+// Component는 요청한 페이지
+// pageProps는 getInitialProps를 통해 내려받은 Props
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <GlobalStyles />
