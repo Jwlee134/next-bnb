@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
-import queryString from "query-string";
 import { useDispatch } from "react-redux";
 import Button from "src/components/common/Button";
 import Counter from "src/components/common/Counter";
@@ -9,6 +8,7 @@ import { useSelector } from "src/store";
 import { searchRoomActions } from "src/store/searchRoom";
 import palette from "src/styles/palette";
 import styled from "styled-components";
+import { makeQueryString } from "src/lib/utils";
 
 const Container = styled.div`
   position: relative;
@@ -79,7 +79,8 @@ const Guests = () => {
   const searchRoom = useSelector((state) => state.searchRoom);
   const dispatch = useDispatch();
 
-  console.log(queryString.stringify(searchRoom));
+  const queryHref = makeQueryString("/room", searchRoom);
+
   const [openPopup, setOpenPopup] = useState(false);
 
   const guestsText = `성인 ${adultCount}명${
@@ -128,7 +129,7 @@ const Guests = () => {
           </PopupContainer>
         )}
         <ButtonContainer>
-          <Link href={`/room?${queryString.stringify(searchRoom)}`}>
+          <Link href={queryHref}>
             <a>
               <Button style={{ width: 60, backgroundColor: palette.amaranth }}>
                 검색

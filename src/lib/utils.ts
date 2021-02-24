@@ -21,3 +21,16 @@ export const getNumber = (string: string) => {
 export const numberWithCommas = (input: string) => {
   return input.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 };
+
+// query string 만들기
+export const makeQueryString = (url: string, queryObject: Object) => {
+  const keys = Object.keys(queryObject);
+  const values = Object.values(queryObject);
+  let queryString = `${url}?`;
+  // value가 존재할때만 queryString에 추가
+  values.forEach((value, i) => {
+    if (value) queryString += `${keys[i]}=${value}&`;
+  });
+  // 마지막 & 제거
+  return queryString.slice(0, -1);
+};

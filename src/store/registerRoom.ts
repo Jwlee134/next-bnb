@@ -72,6 +72,8 @@ const registerRoom = createSlice({
         // bedroomDetail의 index 0 ~ 1 까지 추출하여 새로운 배열로 반환
         // slice(0, 2)에서 index 2는 미포함
         state.bedroomDetail = state.bedroomDetail.slice(0, action.payload);
+        // 위 코드는 오른쪽 코드와 같음 : state.bedroomDetail.splice(0, action.payload);
+        // 원본 배열을 변경하느냐 안하느냐의 차이
       }
     },
     setBedCount: (state, action: PayloadAction<number>) => {
