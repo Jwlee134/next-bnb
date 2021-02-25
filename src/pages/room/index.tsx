@@ -24,12 +24,10 @@ Room.getInitialProps = async ({ store, query }) => {
   } = query;
   try {
     const { data } = await getRoomListAPI({
-      location: location ? encodeURI(location as string) : undefined,
       checkInDate,
       checkOutDate,
       adultCount,
       childrenCount,
-      infantsCount,
       latitude,
       longitude,
       limit: limit || "20",

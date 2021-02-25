@@ -10,7 +10,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       checkOutDate,
       adultCount,
       childrenCount,
-      infantsCount,
       latitude,
       longitude,
       limit,
@@ -20,18 +19,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const roomList = Data.room.getRoomList();
 
       const filteredRoomList = roomList.filter((room) => {
+        // 위도 경도가 등록된 방 기준 ± 0.5 이내에 들지 않으면 필터링
         if (latitude && longitude) {
           if (
             !(
-              Number(latitude) - 0.5 < room.latitude &&
-              Number(latitude) + 0.5 > room.latitude &&
-              Number(longitude) - 0.5 < room.longitude &&
-              Number(longitude) + 0.5 > room.longitude
+              Number(latitude) < room.latitude + 0.5 &&
+              Number(latitude) > room.latitude - 0.5 &&
+              Number(longitude) < room.longitude + 0.5 &&
+              Number(longitude) > room.longitude - 0.5
             )
           ) {
             return false;
           }
         }
+        // 체크인 날짜가 예약 가능 날짜 전이거나 예약 마감 날짜 후면 필터링
         if (checkInDate && room.startDate && room.endDate) {
           if (
             new Date(checkInDate as string) < new Date(room.startDate) ||
@@ -40,6 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             return false;
           }
         }
+        // 체크아웃 날짜가 예약 가능 날짜 전이거나 예약 마감 날짜 후면 필터링
         if (checkOutDate && room.startDate && room.endDate) {
           if (
             new Date(checkOutDate as string) < new Date(room.startDate) ||
@@ -48,6 +50,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             return false;
           }
         }
+        // 예약 인원이 등록된 방의 가능 예약 인원보다 높으면 필터링 (어린이는 0.5명으로 취급)
         if (
           room.maximumGuestCount <
           Number(adultCount as string) +

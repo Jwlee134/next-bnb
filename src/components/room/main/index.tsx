@@ -1,14 +1,24 @@
 import { format } from "date-fns";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useSelector } from "src/store";
 import palette from "src/styles/palette";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import MapIcon from "../../../../public/static/svg/room/main/map.svg";
 import RoomList from "./RoomList";
 
-const Container = styled.div`
+const RoomListMap = dynamic(() => import("./RoomListMap"), { ssr: false });
+
+const Container = styled.div<{ showMap: boolean }>`
   padding: 50px 80px;
   margin: auto;
+  ${({ showMap }) =>
+    showMap &&
+    css`
+      width: 840px;
+      padding: 50px 20px;
+      margin: 0;
+    `}
 `;
 
 const RoomListInfo = styled.p`
@@ -78,7 +88,7 @@ const RoomMain = () => {
   } ${checkOutDate ? format(new Date(checkOutDate), " - MM월 dd일") : ""}`;
 
   return (
-    <Container>
+    <Container showMap={showMap}>
       <RoomListInfo>{getRoomListInfo}</RoomListInfo>
       <Title>숙소</Title>
       <ButtonContainer>
@@ -88,11 +98,12 @@ const RoomMain = () => {
         </LeftSide>
         <Button onClick={() => setShowMap(!showMap)}>
           <MapIcon />
-          지도 표시하기
+          {!showMap ? "지도 표시하기" : "지도 숨기기"}
         </Button>
       </ButtonContainer>
       <ListContainer>
         <RoomList showMap={showMap} />
+        {showMap && <RoomListMap showMap={showMap} setShowMap={setShowMap} />}
       </ListContainer>
     </Container>
   );
