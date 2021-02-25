@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type BedType =
   | "소파"
   | "에어 매트릭스"
@@ -12,13 +14,13 @@ export type BedType =
   | "물침대";
 
 export interface StoredRoomType extends RoomType {
-  id: number;
   createdAt: Date;
   updatedAt: Date;
   hostId: number;
 }
 
 export interface RoomType {
+  id: number;
   largeBuildingType: string | null;
   buildingType: string | null;
   roomType: string | null;
@@ -47,6 +49,7 @@ export interface RoomType {
   startDate: string | null;
   endDate: string | null;
   anytime: boolean;
+  host: User;
 }
 
 export interface SearchRoomType {

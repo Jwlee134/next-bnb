@@ -68,8 +68,8 @@ const CounterContainer = styled.div`
 
 const ButtonContainer = styled.div`
   position: absolute;
-  right: 9px;
-  top: 9px;
+  right: 11px;
+  top: 11px;
 `;
 
 const Guests = () => {
@@ -88,57 +88,59 @@ const Guests = () => {
   }${infantsCount ? `, 유아 ${infantsCount}명` : ""}`;
 
   return (
-    <Container onClick={() => setOpenPopup(true)}>
-      <OutsideClickHandler onOutsideClick={() => setOpenPopup(false)}>
-        <TextContainer>
-          <Label>인원</Label>
-          <Text>{guestsText}</Text>
-        </TextContainer>
-        {openPopup && (
-          <PopupContainer>
-            <CounterContainer>
-              <Counter
-                onClick={(value) => {
-                  dispatch(searchRoomActions.setAdultCount(value));
-                }}
-                label="성인"
-                description="만 13세 이상"
-                value={adultCount}
-              />
-            </CounterContainer>
-            <CounterContainer>
-              <Counter
-                onClick={(value) => {
-                  dispatch(searchRoomActions.setChildrenCount(value));
-                }}
-                label="어린이"
-                description="만 2~12세"
-                value={childrenCount}
-              />
-            </CounterContainer>
-            <CounterContainer>
-              <Counter
-                onClick={(value) => {
-                  dispatch(searchRoomActions.setInfantsCount(value));
-                }}
-                label="유아"
-                description="만 2세 미만"
-                value={infantsCount}
-              />
-            </CounterContainer>
-          </PopupContainer>
-        )}
-        <ButtonContainer>
-          <Link href={queryHref}>
-            <a>
-              <Button style={{ width: 60, backgroundColor: palette.amaranth }}>
-                검색
-              </Button>
-            </a>
-          </Link>
-        </ButtonContainer>
-      </OutsideClickHandler>
-    </Container>
+    <>
+      <Container onClick={() => setOpenPopup(true)}>
+        <OutsideClickHandler onOutsideClick={() => setOpenPopup(false)}>
+          <TextContainer>
+            <Label>인원</Label>
+            <Text>{guestsText}</Text>
+          </TextContainer>
+          {openPopup && (
+            <PopupContainer>
+              <CounterContainer>
+                <Counter
+                  onClick={(value) => {
+                    dispatch(searchRoomActions.setAdultCount(value));
+                  }}
+                  label="성인"
+                  description="만 13세 이상"
+                  value={adultCount}
+                />
+              </CounterContainer>
+              <CounterContainer>
+                <Counter
+                  onClick={(value) => {
+                    dispatch(searchRoomActions.setChildrenCount(value));
+                  }}
+                  label="어린이"
+                  description="만 2~12세"
+                  value={childrenCount}
+                />
+              </CounterContainer>
+              <CounterContainer>
+                <Counter
+                  onClick={(value) => {
+                    dispatch(searchRoomActions.setInfantsCount(value));
+                  }}
+                  label="유아"
+                  description="만 2세 미만"
+                  value={infantsCount}
+                />
+              </CounterContainer>
+            </PopupContainer>
+          )}
+        </OutsideClickHandler>
+      </Container>
+      <ButtonContainer>
+        <Link href={queryHref}>
+          <a>
+            <Button style={{ width: 60, backgroundColor: palette.amaranth }}>
+              검색
+            </Button>
+          </a>
+        </Link>
+      </ButtonContainer>
+    </>
   );
 };
 

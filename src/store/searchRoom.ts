@@ -40,6 +40,10 @@ const searchRoom = createSlice({
     setLongitude: (state, action: PayloadAction<number>) => {
       state.longitude = action.payload;
     },
+    setSearchRoom: (state, action: PayloadAction<SearchRoomType>) => {
+      state = action.payload;
+      return state;
+    },
   },
 });
 

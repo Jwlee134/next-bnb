@@ -7,10 +7,10 @@ import useSnackBar from "src/hooks/useSnackBar";
 import palette from "src/styles/palette";
 import { useSelector } from "src/store";
 import { registerRoomAPI } from "src/lib/api/room";
-import Button from "../common/Button";
-import BackArrowIcon from "../../../public/static/svg/register/register_room_footer_back_arrow.svg";
 import { useDispatch } from "react-redux";
 import { registerRoomActions } from "src/store/registerRoom";
+import Button from "../common/Button";
+import BackArrowIcon from "../../../public/static/svg/register/register_room_footer_back_arrow.svg";
 
 const Container = styled.div`
   width: 100%;

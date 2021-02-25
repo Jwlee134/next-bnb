@@ -1,3 +1,4 @@
+import { RoomType } from "./room";
 import { User } from "./user";
 
 export interface UserState extends User {
@@ -6,4 +7,8 @@ export interface UserState extends User {
 
 export interface CommonState {
   validateMode: boolean;
+}
+
+export interface RoomState {
+  rooms: RoomType[];
 }
