@@ -1,4 +1,6 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
+import SignUpModal from "src/components/auth/SignUpModal";
 import { useSelector } from "src/store";
 import styled from "styled-components";
 
@@ -63,6 +65,7 @@ const RoomListMap = ({ showMap, setShowMap }: Props) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const { latitude, longitude } = useSelector((state) => state.searchRoom);
   const { rooms } = useSelector((state) => state.room);
+  const router = useRouter();
 
   const loadMap = () => {
     // https://developers.google.com/maps/documentation/javascript/overview
@@ -83,8 +86,14 @@ const RoomListMap = ({ showMap, setShowMap }: Props) => {
           position: { lat: room.latitude, lng: room.longitude },
           map,
         });
+        marker.addListener("mouseover", () => {
+          console.log("mouseover");
+        });
+        marker.addListener("mouseout", () => {
+          console.log("mouseout");
+        });
         marker.addListener("click", () => {
-          console.log(room.id);
+          router.push(`/room/${room.id}`);
         });
       });
     }

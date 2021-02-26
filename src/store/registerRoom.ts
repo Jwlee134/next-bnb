@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BedType, RoomType } from "src/types/room";
+import { RegisterRoomState } from "src/types/reduxState";
+import { BedType } from "src/types/room";
 
-const initialState: RoomType = {
+const initialState: RegisterRoomState = {
   largeBuildingType: null, // 건물 유형 큰 범주
   buildingType: null, // 건물 유형
   roomType: null, // 숙소 유형

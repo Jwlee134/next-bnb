@@ -8,11 +8,16 @@ import { RoomType } from "src/types/room";
 import styled, { css } from "styled-components";
 
 const ImageContainer = styled.div`
+  position: relative;
   width: 100%;
+  padding-bottom: 60%;
   margin-bottom: 14px;
   img {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 `;
 
@@ -88,6 +93,7 @@ const Container = styled.div<{ showMap: boolean }>`
         margin-right: 16px;
         margin-bottom: 0;
         border-radius: 8px;
+        padding-bottom: 0;
       }
       ${TextContainer} {
         position: relative;

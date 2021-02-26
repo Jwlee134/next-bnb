@@ -20,3 +20,5 @@ export const registerRoomAPI = (body: RoomType & { hostId: number }) =>
 
 export const getRoomListAPI = (query: Query) =>
   axios.get<RoomType[]>(makeQueryString("/api/room", query));
+
+export const getRoomAPI = (id: number) => axios.get<RoomType>(`api/room/${id}`);

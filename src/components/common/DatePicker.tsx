@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import palette from "src/styles/palette";
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
   .react-datepicker {
     padding: 16px 32px;
     background-color: white;

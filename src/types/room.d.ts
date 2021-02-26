@@ -1,3 +1,4 @@
+import { RegisterRoomState } from "./reduxState";
 import { User } from "./user";
 
 export type BedType =
@@ -13,42 +14,18 @@ export type BedType =
   | "해먹"
   | "물침대";
 
-export interface StoredRoomType extends RoomType {
+export interface StoredRoomType extends RegisterRoomState {
+  id: number;
   createdAt: Date;
   updatedAt: Date;
   hostId: number;
+  host: User;
 }
 
-export interface RoomType {
+export interface RoomType extends RegisterRoomState {
   id: number;
-  largeBuildingType: string | null;
-  buildingType: string | null;
-  roomType: string | null;
-  isForGuest: string | null;
-  maximumGuestCount: number;
-  bedroomCount: number;
-  bedCount: number;
-  bedroomDetail: { id: number; beds: { type: BedType; count: number }[] }[];
-  publicBedList: { type: BedType; count: number }[];
-  bathroomCount: number;
-  bathroomType: "private" | "public" | null;
-  country: string;
-  city: string;
-  district: string;
-  streetAddress: string;
-  detailAddress: string;
-  postcode: string;
-  latitude: number;
-  longitude: number;
-  amentities: string[];
-  conveniences: string[];
-  photos: string[];
-  description: string;
-  title: string;
-  price: number;
-  startDate: string | null;
-  endDate: string | null;
-  anytime: boolean;
+  createdAt: string;
+  updatedAt: string;
   host: User;
 }
 

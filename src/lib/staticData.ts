@@ -1,4 +1,4 @@
-import { BedType } from "~/src/types/room";
+import { BedType } from "src/types/room";
 
 export const monthList = [
   "1월",
